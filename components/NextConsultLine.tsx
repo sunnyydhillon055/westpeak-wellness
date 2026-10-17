@@ -28,7 +28,11 @@ import { site } from '@/lib/site';
  * bundle (the perf rule of 1 Oct 2026). It prints nothing at all when Cliniko
  * could not be read. When it was read and nobody it would name has a time in the
  * next two weeks it says so and links the ask-for-a-time form on /book
- * (2 Oct 2026, "next-consult-ask"), naming no day and no hour. These are appointment times
+ * (2 Oct 2026, "next-consult-ask"), naming no day and no hour. Since 16 Oct
+ * 2026 (item 554) a counsellor with nothing in the two weeks but a day open
+ * further on (up to five weeks out) is named with that day instead of being
+ * dropped: the Cliniko read's `later` day, which nextConsultEntries in
+ * lib/next-consult.ts reads. These are appointment times
  * Cliniko is offering, not opening hours, and they are Pacific time.
  *
  * "book with Camille" ends in #calendar (1 Oct 2026, wf/book-and-cta): the

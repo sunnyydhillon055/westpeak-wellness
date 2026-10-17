@@ -101,6 +101,7 @@ export { loadAvailability, resetAvailabilityForTests, KEEP_MS } from './availabi
 export type BookSummary = {
   slug: string; count: number; next: string[]; days: string[];
   earliest: string; latest: string; weekend: boolean; evening: boolean; error?: string;
+  later?: string;
 };
 export function bookSummary(all: ClientAvailability | null | undefined, slug: string): BookSummary | undefined {
   const a = all?.[slug];
@@ -108,5 +109,6 @@ export function bookSummary(all: ClientAvailability | null | undefined, slug: st
   return {
     slug, count: a.count, next: Array.isArray(a.next) ? a.next : [],
     days: [], earliest: '', latest: '', weekend: false, evening: false,
+    ...(typeof a.later === 'string' && a.later ? { later: a.later } : {}),
   };
 }

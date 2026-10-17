@@ -252,3 +252,58 @@ test('the year-end page is linked by what it is, not as "booklet", and CoverageL
   assert.match(line, /<Link href=\{YEAR_END_PATH\}>using benefits before the plan year ends<\/Link>/);
   assert.doesNotMatch(line, /Pacific Blue Cross|Manulife|Sun Life|Canada Life|Green Shield/);
 });
+
+/* ---------- Round 11 (wf/r11-booking-telemetry-forms), 16 Oct 2026 ---------- */
+import { bookingFormLine, bookedPanelText, CONSULT_NO_CHARGE, BOOKING_FORM_FIELDS } from '../lib/practice-facts.ts';
+import { consultPaymentStepOff } from '../lib/site.ts';
+import { waitingRows } from '../lib/waiting-on-you.ts';
+
+/* #553 */
+test('/book says what Cliniko’s form asks, and "No card" renders only once the payment step is off', () => {
+  assert.equal(consultPaymentStepOff, false, 'ships false until the owner has switched the payment step off in Cliniko');
+  assert.match(bookingFormLine(false), /^The booking page asks for your name, date of birth, email and mobile, and two consent boxes\. The consultation is free; if it offers Pay now or Pay later, choose Pay later\.$/);
+  assert.equal(bookingFormLine(true), `The booking page asks for ${BOOKING_FORM_FIELDS}.`, 'the flag removes the Pay-later clause');
+
+  const book = readFileSync(join(ROOT, 'components/BookChoice.tsx'), 'utf8');
+  /* The only places "No card" and "No intake form" can render are the true
+     branches of the flag. */
+  const noCard = [...book.matchAll(/'No card'/g)];
+  assert.equal(noCard.length, 1);
+  assert.match(book, /<li>\{data\.paymentStepOff \? 'No card' : 'Free'\}<\/li>/);
+  assert.match(book, /<li>\{data\.paymentStepOff \? 'No intake form' : 'One short booking form'\}<\/li>/);
+  assert.doesNotMatch(book, /<li>No card<\/li>|<li>No intake form<\/li>/);
+  /* Rendered under the calendar heading, from the server's data. */
+  assert.match(book, /\{data\.bookingForm\}/);
+  const page = readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8');
+  assert.match(page, /bookingForm: bookingFormLine\(consultPaymentStepOff\),/);
+  assert.match(page, /paymentStepOff: consultPaymentStepOff,/);
+  /* The client island reads neither module (the layout-chunk rule). */
+  assert.doesNotMatch(book, /^import[^\n]*(consultPaymentStepOff|practice-facts)/m);
+
+  const base = {
+    roster: [], today: '2026-10-16', albertaPages: {}, draftGuides: 0, icbcVendor: true,
+    directFirstSession: true, clientAgreementLive: true, punjabiFormDecided: true, availability: {},
+  };
+  const on = waitingRows({ ...base, consultPaymentStepOff: false });
+  assert.ok(on.some((r) => /Pay now \/ Pay later/.test(r.item)), 'a waiting-on-you row while the flag is false');
+  assert.equal(waitingRows({ ...base, consultPaymentStepOff: true }).length, 0, 'and none once it is true');
+});
+
+/* #569 */
+test('the booked panel says where the video link comes from, from the house sentences, with no fee', () => {
+  const t = bookedPanelText('Camille');
+  assert.match(t, /^Booked with Camille\. Cliniko is emailing your confirmation now; the video link is in it \(check spam\)\. Nothing to install; you are never required to be on camera to be in a session\. No charge to move or cancel it: use the link in that email\.$/);
+  assert.equal(CAMERA_OPTIONAL.slice(1), t.slice(t.indexOf('you are never') + 1, t.indexOf('session.') + 'session.'.length));
+  assert.match(bookedPanelText(), /^Booked\. Cliniko/);
+  assert.doesNotMatch(t, /\$|refund|24 hours|%/, 'no fee and no paid-session cancellation rule');
+  assert.doesNotMatch(t, /'/, 'typographic apostrophes only');
+  const book = readFileSync(join(ROOT, 'components/BookChoice.tsx'), 'utf8');
+  assert.match(book, new RegExp(`<li>${CONSULT_NO_CHARGE}</li>`), 'the panel repeats the /book chip word for word');
+  assert.match(book, /booked=\{Object\.fromEntries\(Object\.entries\(data\.booked\)/);
+  assert.match(book, /<Link href="\/resources\/before-your-first-consultation">What to expect on the call<\/Link>/);
+  const tele = readFileSync(join(ROOT, 'components/SchedulerTelemetry.tsx'), 'utf8');
+  assert.match(tele, /\{done && booked && \(\s*<div ref=\{panel\} tabIndex=\{-1\} className="crisis" role="status"/);
+  assert.match(tele, /if \(done\) panel\.current\?\.focus\(\{ preventScroll: true \}\);/);
+  /* The portal passes nothing and so shows nothing. */
+  assert.doesNotMatch(readFileSync(join(ROOT, 'components/SchedulerEmbed.tsx'), 'utf8'), /booked=/);
+});

@@ -59,3 +59,22 @@ export function fromFrame(eventOrigin: string, eventSource: unknown, frameSrc: s
     return false;
   }
 }
+
+/* EACH STEP INSIDE THE FRAME, COUNTED — 16 Oct 2026 (item 555).
+ *
+ * Cliniko posts "cliniko-bookings-page:<name>" at every step change, and
+ * until now only "confirmed" was read: 17 frames seen, 11 touched and 1
+ * booked (conversion log, 16 Oct) could not say whether people stopped at
+ * the times, the details form or the payment step. SchedulerTelemetry now
+ * counts each new step name once per mounted frame as `scheduler_step`. A
+ * name is accepted only in this shape (lower-case letters and hyphens, at
+ * most 24), and the server applies the same pattern and keeps at most
+ * STEP_CAP distinct names (lib/conversion-detail.ts), so a frame that posts
+ * anything else cannot write a key. Only the message's name is read, never
+ * anything about the person. "confirmed" stays scheduler_booked's. */
+export const STEP_PATTERN = /^[a-z-]{1,24}$/;
+
+/** The step name to count for a page message, or null. */
+export function stepName(page: string): string | null {
+  return page !== 'confirmed' && STEP_PATTERN.test(page) ? page : null;
+}

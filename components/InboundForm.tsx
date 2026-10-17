@@ -4,22 +4,19 @@ import FormStamp from '@/components/FormStamp';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import MailLink from '@/components/MailLink';
-import { detailProgress, hasEnoughDetail, MIN_SENTENCES, MIN_WORDS } from '@/lib/sentences';
+import {
+  detailProgress, hasEnoughDetail, MIN_SENTENCES, MIN_WORDS, ENQUIRY_FLOORS, TIME_REQUEST_FLOOR, TIME_REQUEST_FORM,
+} from '@/lib/sentences';
 import { LOOKING, WHERE, TIMING, EMPLOYER, lookingFromAbout } from '@/lib/enquiry-fields';
 import { DRAFT_FIELDS, DRAFT_KEY, EMAIL_PATTERN, EMAIL_TITLE, parseDraft, sendState, whySentence, type Draft, type Why } from '@/lib/inbound-return';
-import { track, type TrackedEvent } from '@/lib/analytics';
-
-/* `enquiry_blocked` is counted (COUNTED in lib/conversion-log.ts) but not
-   yet in TrackedEvent: lib/analytics.ts is shared by the layout and is not
-   this change's to edit. A type-only addition there at integration removes
-   this widening; it costs no bytes either way. */
-const BLOCKED_EVENT: string = 'enquiry_blocked';
+import { track } from '@/lib/analytics';
+import { gaLead } from '@/lib/ga-lead';
 /* Which rule a blocked send failed first, as one word from
    ENQUIRY_BLOCKS in lib/conversion-detail.ts (kept as literals here: that
    module carries the roster). Nothing typed is read beyond the count. */
-function blockedRule(el: EventTarget | null): string | null {
+function blockedRule(el: EventTarget | null, floor = ENQUIRY_FLOORS.enquiry): string | null {
   if (el instanceof HTMLTextAreaElement) {
-    const p = detailProgress(el.value);
+    const p = detailProgress(el.value, floor);
     return p.stage === 'one-sentence' ? 'one-sentence' : 'short';
   }
   if (el instanceof HTMLSelectElement) return 'choices';
@@ -105,8 +102,15 @@ export default function InboundForm({
   button,
   returnTo,
   doneExtra,
+  floor,
 }: {
   kind: Kind;
+  /* THE ASK-FOR-A-TIME FORM ON /book — 16 Oct 2026 (item 577). Sends
+     form=time-request and holds the message to ENQUIRY_FLOORS[
+     TIME_REQUEST_FLOOR] (lib/sentences.ts), which is today's enquiry floor
+     until the owner flips the constant. The server applies the same floor
+     only for a post from /book. Every other form is unchanged. */
+  floor?: 'time-request';
   done?: 'ok' | 'err';
   /* Shown under the confirmation once a message is sent: /contact and /book
      pass each counsellor's next free consultation day as a booking link
@@ -132,8 +136,9 @@ export default function InboundForm({
 }) {
   const pathname = usePathname();
   const c = COPY[kind];
+  const rule = floor ? ENQUIRY_FLOORS[TIME_REQUEST_FLOOR] : ENQUIRY_FLOORS.enquiry;
   const [message, setMessage] = useState('');
-  const progress = detailProgress(message);
+  const progress = detailProgress(message, rule);
 
   /* ?about=employer preselects the employer choice (1 Oct 2026), read after
      mount from location rather than useSearchParams, which would take every
@@ -217,14 +222,20 @@ export default function InboundForm({
     if (!f) return;
     const onInvalid = (e: Event) => {
       if (blockedOnce.current) return;
-      const rule = blockedRule(e.target);
-      if (!rule) return;
+      const failed = blockedRule(e.target, rule);
+      if (!failed) return;
       blockedOnce.current = true;
-      track(BLOCKED_EVENT as TrackedEvent, { detail: rule });
+      track('enquiry_blocked', { detail: failed });
     };
     f.addEventListener('invalid', onInvalid, true);
     return () => f.removeEventListener('invalid', onInvalid, true);
-  }, []);
+  }, [rule]);
+
+  /* GA4's lead event when the confirmation shows (lib/ga-lead.ts, item 588).
+     GA only: the counter has enquiry_submit from the server already. */
+  useEffect(() => {
+    if (done === 'ok') gaLead('enquiry');
+  }, [done]);
 
   if (done === 'ok') {
     return (
@@ -241,8 +252,11 @@ export default function InboundForm({
      field, in the browser's own words plus this one line, and it blocks the
      post. Cleared on every keystroke so the message updates as they type.
      With JavaScript off none of this runs and the server applies the rule. */
+  const tooShort = rule === ENQUIRY_FLOORS.enquiry
+    ? TOO_SHORT
+    : `Please write about ${rule.words} words on when you are usually free and what you are looking for.`;
   const checkLength = (el: HTMLTextAreaElement) =>
-    el.setCustomValidity(hasEnoughDetail(el.value) ? '' : TOO_SHORT);
+    el.setCustomValidity(hasEnoughDetail(el.value, rule) ? '' : tooShort);
 
   return (
     /* No onSubmit beacon. This is a native POST, and a beacon fired as it
@@ -261,6 +275,7 @@ export default function InboundForm({
       <input type="hidden" name="source" value={pathname ?? '/'} />
       {practitioner && <input type="hidden" name="practitioner" value={practitioner} />}
       {returnTo && <input type="hidden" name="returnTo" value={returnTo} />}
+      {floor && <input type="hidden" name="form" value={TIME_REQUEST_FORM} />}
       <FormStamp />
 
 
@@ -330,8 +345,10 @@ export default function InboundForm({
       <div className="lead-form-field">
         <label htmlFor="in-message">Your message</label>
         <p className="lead-form-hint" id={`in-message-hint-${kind}`}>
-          About {MIN_WORDS} words, in two sentences or more: what is going on, and what you are
-          hoping for.
+          {rule === ENQUIRY_FLOORS.enquiry
+            ? <>About {MIN_WORDS} words, in two sentences or more: what is going on, and what you are
+              hoping for.</>
+            : <>About {rule.words} words: when you are usually free, and what you are looking for.</>}
         </p>
         <textarea id="in-message" name="message" required rows={4}
           className="lead-form-area" placeholder={placeholder ?? c.placeholder}

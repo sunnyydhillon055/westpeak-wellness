@@ -4,7 +4,7 @@ import Figure from '@/components/Figure';
 import { StepsArt } from '@/components/Art';
 import '@/app/art.css';
 import Link from 'next/link';
-import { site, bookingsUrlFor, RCC_PLAIN, CLINIKO_EMBED_PARAM } from '@/lib/site';
+import { site, bookingsUrlFor, RCC_PLAIN, CLINIKO_EMBED_PARAM, consultPaymentStepOff } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import MeasuredReply from '@/components/MeasuredReply';
@@ -16,7 +16,7 @@ import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { sessionFeesPhrase, sessionLengthsLine } from '@/lib/book-fees';
 import { imgProps } from '@/lib/img-props';
 import { FirstSessionRows } from '@/components/FirstSessionRow';
-import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL } from '@/lib/practice-facts';
+import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL, bookingFormLine, bookedPanelText } from '@/lib/practice-facts';
 import { BEFORE_SESSION_ONE } from '@/lib/faq';
 import { lowestFee, offersShort } from '@/lib/practitioner-facts';
 
@@ -79,6 +79,7 @@ const CARD_CSS = `
 .bk-card .book-card-avail{min-height:1.5em;margin-top:2px}
 .bk-long{display:none}.bk-short{display:inline}
 .bk-card__btn{justify-self:stretch;margin-top:8px}
+.book-facts{margin-bottom:12px}
 }`;
 
 const areaOf = (p: { provinces: string[]; reach?: 'canada' }) =>
@@ -164,6 +165,14 @@ export default async function Book() {
     rccPlain: RCC_PLAIN,
     embedParam: CLINIKO_EMBED_PARAM,
     builtAt: Date.now(),
+    /* Items 553 and 569: what Cliniko's form asks, whether it still shows a
+       payment step, and the panel shown once a booking is confirmed. */
+    bookingForm: bookingFormLine(consultPaymentStepOff),
+    paymentStepOff: consultPaymentStepOff,
+    booked: Object.fromEntries([
+      ['', bookedPanelText()],
+      ...accepting.map((p) => [p.slug, bookedPanelText(p.name.split(' ')[0])]),
+    ]),
   };
 
   /* THE PUNJABI THREAD — 1 Oct 2026 (wf/book-and-cta). Reused verbatim from

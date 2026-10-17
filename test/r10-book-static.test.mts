@@ -135,6 +135,31 @@ test('inline-css --check fails a sitemap URL with no prerendered document', () =
   assert.match(s, /sitemap/);
 });
 
+/* ---------- 560 (round 11): bare /book shows the choice before the explainer ---------- */
+
+test('bare /book renders "Who would you like to talk to?" straight after the facts, then the 15-minute explainer', () => {
+  const s = src('components/BookChoice.tsx');
+  const at = (re: RegExp) => {
+    const m = re.exec(s);
+    assert.ok(m, String(re));
+    return m.index;
+  };
+  const facts = at(/<ul className="book-facts">/);
+  const choose = at(/<div className="book-choose"/);
+  const what = at(/<ul className="book-what">/);
+  const calendar = at(/<div id="calendar"/);
+  /* Measured on production at 375x812 on 16 Oct 2026 with the block moved in
+     the DOM: the heading at y=562 and the first "Book with" button at 803
+     (from 1,094 and 1,335); the page's own CSS takes 8px more off below
+     520px. The order in the source is the order in the HTML. */
+  assert.ok(facts < choose && choose < what && what < calendar, `facts ${facts}, choose ${choose}, what ${what}, calendar ${calendar}`);
+  /* Still only on bare /book, and nothing went behind a disclosure. */
+  assert.match(s, /\{accepting\.length > 1 && !who && \(\s*<div className="book-choose"/);
+  assert.doesNotMatch(s.slice(facts, calendar), /<details/);
+  const css = src('app/book/page.tsx');
+  assert.ok(css.indexOf('.book-facts{margin-bottom:12px}') > css.indexOf('@media (max-width:520px){'), 'phones only');
+});
+
 /* ---------- 542: no next/image client chunk ---------- */
 
 const walk = (dir: string, out: string[] = []): string[] => {

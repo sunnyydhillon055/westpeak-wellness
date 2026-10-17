@@ -204,4 +204,14 @@ export type TrackedEvent =
   /* Only fires once NEXT_PUBLIC_PHONE is set and the tel: links exist —
    * see lib/site.ts. Until then it reads as zero, which is accurate. */
   | 'phone_click'
-  | 'email_click';
+  | 'email_click'
+  /* Three events COUNTED in lib/conversion-log.ts and sent by real code that
+   * had to widen its own constant to reach `track` (16 Oct 2026, item 555):
+   * a send the enquiry form's own checks stopped (components/InboundForm),
+   * one load of the framed calculator (pages/embed/stress-leave-pay-
+   * calculator), and each step inside Cliniko's frame
+   * (components/SchedulerTelemetry). Types only: no byte reaches a bundle.
+   * test/booking-beacons.test.mts fails if a COUNTED event is missing here. */
+  | 'enquiry_blocked'
+  | 'embed_view'
+  | 'scheduler_step';

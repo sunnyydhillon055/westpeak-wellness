@@ -16,11 +16,13 @@ export const revalidate = 1800;
 
 export async function GET() {
   const all = await consultationAvailability();
-  const out: Record<string, { first: string; next: string[]; count: number }> = {};
+  const out: Record<string, { first: string; next: string[]; count: number; later?: string }> = {};
   for (const p of practitioners) {
     const a = all[p.slug];
     if (!a || a.error) continue;
-    out[p.slug] = { first: p.name.split(' ')[0] ?? p.name, next: a.next ?? [], count: a.count };
+    /* `later`: the first open day past the two weeks, a day only, when
+       nothing is open inside them (lib/cliniko-availability.ts, item 554). */
+    out[p.slug] = { first: p.name.split(' ')[0] ?? p.name, next: a.next ?? [], count: a.count, ...(a.later ? { later: a.later } : {}) };
   }
   /* max-age=60, since 3 Oct 2026 (item 429): the sticky bar and the
      consultation slots on a page (components/NextConsultSlot.tsx) each ask

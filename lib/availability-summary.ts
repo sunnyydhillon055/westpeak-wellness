@@ -20,6 +20,10 @@ export type Availability = {
   error?: string;
   /** The first seven days alone, for a line that says "this week". */
   week?: { count: number; days: string[]; earliest: string; latest: string };
+  /** With nothing open in the fourteen days only: the first day with a
+   *  free consultation open in days 15-35, "Mon 4 Jan". A day, never an
+   *  hour. Absent when there is none or that longer read failed. */
+  later?: string;
 };
 
 /* PACIFIC TIME, SAID — 1 Oct 2026.
@@ -108,6 +112,36 @@ const dayOf = (iso: string) =>
 const timeOf = (iso: string) =>
   formatPacific(iso, { hour: 'numeric', minute: '2-digit', hour12: true })
     .replace(/\s?([ap])\.?m\.?/i, ' $1m').replace(':00 ', ' ');
+/* PAST THE TWO WEEKS, ONE DAY — 16 Oct 2026 (item 554).
+ *
+ * Consultations open on two days a week, and the owner's January item 13
+ * starts on 4 Jan, so from about 21 Dec every consultation line on /book,
+ * /contact and the tools' results would have gone to "no free-consultation
+ * times in the next two weeks" in the same fortnight as the year-end plan
+ * push. When a counsellor's fourteen days are read successfully and hold
+ * nothing, lib/cliniko-availability.ts makes up to three more seven-day
+ * reads (days 15-21, 22-28, 29-35; Cliniko caps a request at a week) and
+ * keeps only the first open day. Offsets from today, inclusive, as the
+ * first two windows are. A failed read stops the search and names no day. */
+export const LATER_WINDOWS: readonly (readonly [number, number])[] = [[14, 20], [21, 27], [28, 34]];
+
+/** The first open day in LATER_WINDOWS, or null. `read` returns the slot
+ *  starts (ISO, UTC) Cliniko offers between two day offsets; it is passed
+ *  in so this stays pure and the fixture tests need no network. */
+export async function firstLaterDay(read: (from: number, to: number) => Promise<string[]>): Promise<string | null> {
+  for (const [from, to] of LATER_WINDOWS) {
+    let starts: string[];
+    try {
+      starts = await read(from, to);
+    } catch {
+      return null;
+    }
+    const first = [...starts].filter(Boolean).sort()[0];
+    if (first) return dayOf(first);
+  }
+  return null;
+}
+
 /* One line per open day, first time on it, for up to three days: "Sat 19 Sep
    from 9 am (22 times)". Three consecutive half-hours on one day, which is
    what a raw slot list gives, tells nobody anything they can plan around. */
@@ -162,6 +196,8 @@ export function summariseWindows(slug: string, firstWeek: string[], secondWeek: 
 
 /** "Thu 2 Oct": the day of the first open time, from `next`. */
 export const firstOpenDay = (a: Availability | null | undefined): string | null => {
+  /* Nothing in the two weeks, a day further on (item 554). */
+  if (a && !a.error && a.count === 0 && a.later) return a.later;
   const n = a && !a.error && a.count > 0 ? a.next[0] : undefined;
   return n ? n.split(' from ')[0]!.trim() : null;
 };
@@ -171,7 +207,11 @@ export function availabilityLine(a: Availability | null | undefined, first: stri
   if (!a || a.error) return null;
   /* The card is one link, so this cannot hold another; it points at the
      ask-for-a-time form under the calendar instead (2 Oct 2026). */
-  if (a.count === 0) return `${first} has no free-consultation times in the next two weeks; the calendar shows later ones, or ask for a time with the form under it.`;
+  if (a.count === 0) {
+    return a.later
+      ? `${first}’s next free consultation day is ${a.later}${PACIFIC}.`
+      : `${first} has no free-consultation times in the next two weeks; the calendar shows later ones, or ask for a time with the form under it.`;
+  }
   const day = firstOpenDay(a);
   return `${a.count} free-consultation ${a.count === 1 ? 'time' : 'times'} open with ${first} in the next two weeks${day ? `; next: ${day}${PACIFIC}` : ''}.`;
 }
@@ -203,6 +243,7 @@ export function nextFreeCallEntries(
  *  so whatever prints them prints nothing (wf/r6-book-paths, 3 Oct 2026:
  *  the enquiry acknowledgement and the counsellor's reply draft). */
 export function openDays(a: Availability | null | undefined, n = 3): string[] {
+  if (a && !a.error && a.count === 0 && a.later) return [a.later];
   if (!a || a.error || a.count === 0) return [];
   return a.next.map((x) => x.split(' from ')[0]!.trim()).filter(Boolean).slice(0, n);
 }

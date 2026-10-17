@@ -10,7 +10,10 @@
 
 /** What /api/availability returns: one entry per counsellor Cliniko was read
  *  for successfully. An entry missing means unknown, never "nothing open". */
-export type ClientAvailability = Record<string, { first: string; next: string[]; count: number }>;
+/*  `later` (16 Oct 2026, item 554): with nothing open in the two weeks, the
+ *  first day Cliniko has a consultation open in days 15-35, e.g. "Mon 4 Jan".
+ *  A day only; absent when there is none or the longer read failed. */
+export type ClientAvailability = Record<string, { first: string; next: string[]; count: number; later?: string }>;
 
 /* ONE REQUEST PER PAGE VIEW. The sticky bar and every slot on the page share
    this promise, so a page with three slots still asks once. Kept ten minutes

@@ -1,5 +1,5 @@
 import { blobLedger, memoryLedger, casUpdate, type LedgerIO, type CasOptions } from '@/lib/blob-ledger';
-import { acceptedDetail, splitBookDetail, splitLandingKey, PORTAL_PREFIX, BOOKED_DIRECT } from '@/lib/conversion-detail';
+import { acceptedDetail, splitBookDetail, splitLandingKey, splitStepKey, stepDetailWithin, PORTAL_PREFIX, BOOKED_DIRECT } from '@/lib/conversion-detail';
 
 /* FIRST-PARTY CONVERSION COUNTS.
  *
@@ -136,10 +136,20 @@ const COUNTED = new Set([
   'click_from',
   'booked_from',
   'booked_via',
+  /* Each step Cliniko's frame moved to, once per mounted frame, by step
+     name and counsellor (components/SchedulerTelemetry, 16 Oct 2026, item
+     555): where between scheduler_interact and scheduler_booked people
+     stop. The step names are Cliniko's; at most STEP_CAP are kept. Kept
+     ahead of email_click, which test/measurement.test.mts holds last. */
+  'scheduler_step',
   /* A mailto: link pressed. StickyBook has fired it since 18 Aug and it was
      dropped here; every mailto: now goes through components/MailLink.tsx. */
   'email_click',
 ]);
+/** The same list, for test/booking-beacons.test.mts, which holds every
+ *  entry the browser sends to the TrackedEvent union in lib/analytics.ts
+ *  (16 Oct 2026). */
+export const COUNTED_EVENTS: readonly string[] = [...COUNTED];
 
 /* AN EVENT AND ITS COMPANIONS ARE ONE WRITE — 15 Oct 2026.
  *
@@ -245,7 +255,9 @@ const bump = (m: Record<string, number> | undefined, key: string): Record<string
 
 /** One increment applied to a log. Pure, so the retry can re-apply it to
  *  whatever the store holds now rather than to what it held before. */
-export function withIncrement(current: ConversionLog, event: string, path: string, detail: string | null, now: string): ConversionLog {
+export function withIncrement(current: ConversionLog, event: string, path: string, rawDetail: string | null, now: string): ConversionLog {
+  /* A step name past the first STEP_CAP is counted without its detail. */
+  const detail = event === 'scheduler_step' ? stepDetailWithin(current.details?.scheduler_step, rawDetail) : rawDetail;
   return {
     events: { ...current.events, [event]: bump(current.events[event], path) },
     details: detail ? { ...current.details, [event]: bump(current.details[event], detail) } : current.details,
@@ -381,6 +393,20 @@ export function toolFunnel(log: ConversionLog, slugs: readonly string[]): ToolFu
     embedStarted: at('tool_start', `/embed/${slug}`),
     embedFinished: at('tool_complete', `/embed/${slug}`),
   }));
+}
+
+/* The steps inside the /book calendar (scheduler_step, 16 Oct 2026, item
+   555), summed over counsellors, busiest first: one /admin row each between
+   "touched" and "booked". The portal's paid calendar is left out, as in
+   bookStages. Pure. */
+export function stepRows(log: ConversionLog): DetailConversions[] {
+  const m: Record<string, number> = {};
+  for (const [key, n] of Object.entries(log.details?.scheduler_step ?? {})) {
+    const { step, who } = splitStepKey(key);
+    if (who?.startsWith(PORTAL_PREFIX)) continue;
+    m[step] = (m[step] ?? 0) + n;
+  }
+  return Object.entries(m).map(([detail, count]) => ({ detail, count })).sort((a, b) => b.count - a.count || a.detail.localeCompare(b.detail));
 }
 
 /* A refusal key is "<reason>" (before 15 Oct 2026) or "<reason>:<stamp>".

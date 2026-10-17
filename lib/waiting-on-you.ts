@@ -1,6 +1,7 @@
 import type { Practitioner } from '@/lib/practitioners';
 import { insuranceStatus, insuranceGateDate } from '@/lib/practitioners';
 import type { Availability } from '@/lib/availability-summary';
+import { consultPaymentStepOff } from '@/lib/site';
 
 /* /admin "WAITING ON YOU" — 1 Oct 2026.
  *
@@ -53,6 +54,8 @@ export type WaitingInputs = {
   directFirstSession: boolean;
   clientAgreementLive: boolean;
   punjabiFormDecided: boolean;
+  /** lib/site.ts consultPaymentStepOff; read from there when not passed. */
+  consultPaymentStepOff?: boolean;
   availability: Record<string, Availability | null | undefined>;
 };
 
@@ -165,6 +168,16 @@ export function waitingRows(x: WaitingInputs): WaitingRow[] {
       item: '“Already sure? Start with a first session” (item 211)',
       state: 'built; site.directFirstSession is false',
       unlocks: 'A direct paid first-session row on /book and each profile, logged in data/changes.json',
+      urgent: false,
+    });
+  }
+
+  /* THE FREE CONSULTATION'S PAYMENT STEP — 16 Oct 2026 (item 553). */
+  if (!(x.consultPaymentStepOff ?? consultPaymentStepOff)) {
+    rows.push({
+      item: 'Pay now / Pay later on the free consultation (OUTREACH section 22)',
+      state: 'consultPaymentStepOff is false: /book says “Free” and “One short booking form”, and tells people to choose Pay later',
+      unlocks: 'Online payments Disabled on the Initial Consultation type in Cliniko, then the phone test (owner actions 2 and 3); flipping the flag in lib/site.ts restores “No card”',
       urgent: false,
     });
   }

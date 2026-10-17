@@ -93,3 +93,119 @@ test('Cliniko’s tally is summed from the month the embed began counting', () =
   assert.match(bookedGap(0, 1), /^1 more than Cliniko/);
   assert.match(src('app/admin/page.tsx'), /tallyBookedSince\(tallyRead\.tally\)/);
 });
+
+/* ---------- Round 11 (wf/r11-booking-telemetry-forms), 16 Oct 2026 ---------- */
+import { COUNTED_EVENTS, stepRows } from '@/lib/conversion-log';
+import { acceptedDetail, stepDetailWithin, STEP_CAP } from '@/lib/conversion-detail';
+import { parseClinikoMessage, stepName } from '@/lib/cliniko-frame';
+
+/* Counted events that never pass through track(): stored by the server
+   (enquiry_submit, enquiry_refused, lead_magnet_submit), sent as another
+   event's companions (click_from, booked_from, booked_via), or accepted only
+   for pages loaded before channel_visit replaced it (gbp_visit). */
+const NOT_SENT_BY_TRACK = new Set([
+  'enquiry_submit', 'enquiry_refused', 'lead_magnet_submit',
+  'click_from', 'booked_from', 'booked_via', 'gbp_visit',
+]);
+
+/* #555 */
+test('every COUNTED event the browser sends is in the TrackedEvent union, and no file widens one', () => {
+  const a = src('lib/analytics.ts');
+  const union = a.slice(a.indexOf('export type TrackedEvent ='));
+  const events = new Set([...union.matchAll(/\|\s*'([a-z_0-9]+)'/g)].map((m) => m[1]!));
+  for (const e of COUNTED_EVENTS) {
+    if (NOT_SENT_BY_TRACK.has(e)) continue;
+    assert.ok(events.has(e), `${e} is COUNTED but not a TrackedEvent`);
+  }
+  for (const e of ['scheduler_step', 'enquiry_blocked', 'embed_view']) assert.ok(events.has(e), e);
+  for (const f of ['components/InboundForm.tsx', 'pages/embed/stress-leave-pay-calculator.tsx']) {
+    assert.doesNotMatch(src(f), /as TrackedEvent|: string = '(enquiry_blocked|embed_view)'/, f);
+  }
+});
+
+test('each step inside the Cliniko frame is counted once per frame, by name and counsellor, never "confirmed"', () => {
+  assert.deepEqual(parseClinikoMessage('cliniko-bookings-page:patient-details'), { kind: 'page', page: 'patient-details' });
+  assert.equal(stepName('patient-details'), 'patient-details');
+  assert.equal(stepName('confirmed'), null, 'scheduler_booked owns the confirmation');
+  for (const bad of ['Patient_Details', 'step2', 'a'.repeat(25), '']) assert.equal(stepName(bad), null, bad);
+
+  const tele = src('components/SchedulerTelemetry.tsx');
+  assert.match(tele, /const step = stepName\(msg\.page\);\s*if \(step && !steps\.has\(step\)\) \{\s*steps\.add\(step\);\s*track\('scheduler_step', \{ page, detail: who \? `\$\{step\}\/\$\{who\}` : step \}\);/);
+  assert.match(tele, /const steps = new Set<string>\(\);/, 'a fresh set per mounted frame');
+
+  assert.equal(acceptedDetail('scheduler_step', 'patient-details/camille-granda'), 'patient-details/camille-granda');
+  assert.equal(acceptedDetail('scheduler_step', 'times/portal:savneet-singh'), 'times/portal:savneet-singh');
+  assert.equal(acceptedDetail('scheduler_step', 'times'), 'times');
+  assert.equal(acceptedDetail('scheduler_step', 'times/nobody-real'), 'times', 'an unknown counsellor falls back to the step');
+  assert.equal(acceptedDetail('scheduler_step', 'Jane Doe/camille-granda'), null);
+  assert.equal(acceptedDetail('scheduler_step', '../../x'), null);
+});
+
+test('the store keeps at most STEP_CAP step names and /admin gets one row per step', async () => {
+  assert.equal(STEP_CAP, 12);
+  const full = Object.fromEntries(Array.from({ length: STEP_CAP }, (_, i) => [`step-${'abcdefghijkl'[i]}`, 1]));
+  assert.equal(stepDetailWithin(full, 'new-step'), null, 'a thirteenth name keeps no detail');
+  assert.equal(stepDetailWithin(full, 'step-a/camille-granda'), 'step-a/camille-granda', 'a known name still does');
+  assert.equal(stepDetailWithin({}, 'times'), 'times');
+
+  const io = memoryLedger();
+  const s = createConversionStore(() => io, { backoffMs: 0 });
+  await s.count('scheduler_step', '/book', 'times/camille-granda');
+  await s.count('scheduler_step', '/book', 'times/savneet-singh');
+  await s.count('scheduler_step', '/book', 'details/savneet-singh');
+  await s.count('scheduler_step', '/client-portal', 'times/portal:savneet-singh');
+  const log = await s.read({ fresh: true });
+  assert.equal(log.events.scheduler_step?.['/book'], 3);
+  assert.deepEqual(stepRows(log), [{ detail: 'times', count: 2 }, { detail: 'details', count: 1 }], 'portal steps are not /book steps');
+  const admin = src('app/admin/page.tsx');
+  assert.match(admin, /r\.who === 'all' && stepRows\(log\)\.map/);
+});
+
+/* #588 */
+test('GA4 hears generate_lead at the two moments the browser knows a lead happened, and nothing else does', () => {
+  assert.match(src('components/SchedulerTelemetry.tsx'), /if \(!\(ctx\.who \?\? ''\)\.startsWith\('portal:'\)\) gaLead\('consult'\);/);
+  assert.match(src('components/InboundForm.tsx'), /if \(done === 'ok'\) gaLead\('enquiry'\);/);
+  assert.match(src('app/message-sent/page.tsx'), /<GaLeadOnMount form="enquiry" \/>/);
+  const lead = src('lib/ga-lead.ts');
+  assert.match(lead, /window\.gtag\('event', 'generate_lead', \{ form \}\)/);
+  assert.doesNotMatch(lead, /sendBeacon|fetch\(|\btrack\(/, 'GA only: the counter already has both');
+  assert.match(lead, /excludedBrowser\(\)/);
+  /* Not in the root layout's chunk. */
+  for (const f of ['app/layout.tsx', 'components/Header.tsx', 'components/Footer.tsx', 'components/StickyBook.tsx', 'components/Analytics.tsx', 'components/ConsentGate.tsx']) {
+    assert.doesNotMatch(src(f), /ga-lead|GaLeadOnMount/, f);
+  }
+});
+
+test('gaLead sends once per address, and never from an excluded browser or without gtag', async () => {
+  const { gaLead } = await import('@/lib/ga-lead');
+  const calls: unknown[][] = [];
+  const store: Record<string, string> = {};
+  const g = globalThis as unknown as { window?: unknown };
+  const had = 'window' in g;
+  g.window = {
+    location: { pathname: '/contact', search: '?sent=ok' },
+    localStorage: { getItem: (k: string) => store[k] ?? null },
+    gtag: (...args: unknown[]) => { calls.push(args); },
+  };
+  try {
+    gaLead('enquiry');
+    gaLead('enquiry');
+    assert.deepEqual(calls, [['event', 'generate_lead', { form: 'enquiry' }]]);
+    store['wp-no-count'] = '1';
+    gaLead('consult');
+    assert.equal(calls.length, 1, 'an excluded browser sends nothing');
+    delete store['wp-no-count'];
+    (g.window as { gtag?: unknown }).gtag = undefined;
+    gaLead('consult');
+    assert.equal(calls.length, 1, 'no consent, no gtag, nothing');
+  } finally {
+    if (!had) delete g.window;
+  }
+});
+
+test('a browser /admin has excluded is never shown the consent banner and never loads GA', () => {
+  const c = src('components/ConsentGate.tsx');
+  assert.match(c, /import \{ excludedBrowser \} from '@\/lib\/analytics';/);
+  assert.match(c, /try \{\s*if \(excludedBrowser\(\)\) return 'declined';/);
+  assert.match(c, /if \(choice !== null\) return choice === 'granted' && Ga \? <Ga gaId=\{gaId\} \/> : null;/);
+});

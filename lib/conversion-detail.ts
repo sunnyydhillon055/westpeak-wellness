@@ -1,6 +1,7 @@
 import { practitioners } from '@/lib/practitioners';
 import { tools, WHICH_SERVICE_OUTCOMES, ACCESS_ROUTES } from '@/lib/tools';
 import { CHANNELS, REFERRER_CLASSES } from '@/lib/conversion-detail-client';
+import { STEP_PATTERN } from '@/lib/cliniko-frame';
 
 /* THE ONE EXTRA DIMENSION A CONVERSION EVENT MAY CARRY — 1 Oct 2026.
  *
@@ -279,7 +280,10 @@ export const ENQUIRY_BLOCKS: readonly string[] = ['short', 'one-sentence', 'choi
    2.5 seconds when it was sent (FormStamp's renderedAt): `stamped` reads as
    a person, `unstamped` as a script or a post with no JavaScript. Appended
    to the reason word by lib/inbound-submit.ts refuse(). */
-export const REFUSAL_REASONS: readonly string[] = ['email', 'detail', 'choices', 'repeated'];
+/* `bot` (16 Oct 2026, item 589): the hidden honeypot field was filled. It
+   is read before every other rule now, so a script is counted as a script
+   rather than as an address or a message the floor turned back. */
+export const REFUSAL_REASONS: readonly string[] = ['email', 'detail', 'choices', 'repeated', 'bot'];
 export const REFUSAL_STAMPS: readonly string[] = ['stamped', 'unstamped'];
 export const STAMPED_AFTER_MS = 2500;
 
@@ -401,9 +405,37 @@ export function splitLandingKey(v: string): { path: string; via: string } {
   return i < 0 ? { path: v, via: '' } : { path: v.slice(0, i), via: v.slice(i + 1) };
 }
 
+/* A STEP INSIDE THE CLINIKO FRAME — 16 Oct 2026 (item 555). `scheduler_step`
+   carries "<step>" or "<step>/<counsellor>": a step name in Cliniko's own
+   words, which this site does not choose and so cannot list, held to the
+   shape the browser checks (STEP_PATTERN in lib/cliniko-frame.ts), and the
+   same counsellor keys the other scheduler events use. The store keeps at
+   most STEP_CAP distinct step names (stepDetailWithin, applied by
+   lib/conversion-log.ts), so a frame that posts a new name on every load
+   cannot grow the file; past the cap the step is counted with no detail. */
+export const STEP_CAP = 12;
+const STEP_SEP = '/';
+export function stepKeyOk(v: string): boolean {
+  const i = v.indexOf(STEP_SEP);
+  const step = i < 0 ? v : v.slice(0, i);
+  return STEP_PATTERN.test(step) && (i < 0 || SCHEDULER_KEYS.has(v.slice(i + 1)));
+}
+export function splitStepKey(v: string): { step: string; who?: string } {
+  const i = v.indexOf(STEP_SEP);
+  return i < 0 ? { step: v } : { step: v.slice(0, i), who: v.slice(i + 1) };
+}
+/** The detail to store, given the step details already stored: itself while
+ *  its step name is one of the first STEP_CAP, otherwise null. Pure. */
+export function stepDetailWithin(existing: Record<string, number> | undefined, detail: string | null): string | null {
+  if (!detail) return null;
+  const names = new Set(Object.keys(existing ?? {}).map((k) => splitStepKey(k).step));
+  return names.has(splitStepKey(detail).step) || names.size < STEP_CAP ? detail : null;
+}
+
 const SHAPED: Readonly<Record<string, (v: string) => boolean>> = {
   click_from: landingKeyOk,
   booked_from: landingKeyOk,
+  scheduler_step: stepKeyOk,
 };
 
 /** The detail to store for this event, or null to store none. Never throws,
@@ -422,6 +454,6 @@ export function allowedDetail(event: string, detail: unknown): string | null {
 export function acceptedDetail(event: string, detail: unknown): string | null {
   const strict = allowedDetail(event, detail);
   if (strict || typeof detail !== 'string') return strict;
-  const cut = event === 'book_click' ? detail.indexOf(SEP) : event === 'tool_complete' ? detail.indexOf(':') : -1;
+  const cut = event === 'book_click' || event === 'scheduler_step' ? detail.indexOf(SEP) : event === 'tool_complete' ? detail.indexOf(':') : -1;
   return cut > 0 ? allowedDetail(event, detail.slice(0, cut)) : null;
 }

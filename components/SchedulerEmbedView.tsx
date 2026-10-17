@@ -21,7 +21,7 @@ import { withEmbedFlag } from '@/lib/cliniko-frame';
  * same markup SchedulerGate draws closed (.scheduler-wait), so nothing moves
  * when the real gate replaces it. */
 export default function SchedulerEmbedView({
-  url, embedParam, title, page, who, first, portal = false, placeholder, secondary, cta = 'Show available times', openDetail, pending = false, choices,
+  url, embedParam, title, page, who, first, portal = false, placeholder, secondary, cta = 'Show available times', openDetail, pending = false, choices, booked,
 }: {
   url: string;
   /** CLINIKO_EMBED_PARAM (lib/site.ts), passed in so this file adds no
@@ -43,6 +43,10 @@ export default function SchedulerEmbedView({
    *  each opening her own calendar in this box (bare /book, 15 Oct 2026).
    *  The URLs are plain; the embed flag is added here. */
   choices?: { slug: string; url: string; label: string; title: string }[];
+  /** Shown above the frame once Cliniko confirms a booking, by roster slug
+   *  and '' for the practice-wide calendar (/book, 16 Oct 2026, item 569).
+   *  The portal passes none. */
+  booked?: Record<string, ReactNode>;
 }) {
   const origin = new URL(url).origin;
   const frameTitle = title ?? 'Booking calendar';
@@ -75,11 +79,11 @@ export default function SchedulerEmbedView({
           </div>
         </div>
       ) : placeholder ? (
-        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail} stalled={stalled} choices={framedChoices}>
+        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail} stalled={stalled} choices={framedChoices} booked={booked}>
           {placeholder}
         </SchedulerGate>
       ) : (
-        <SchedulerTelemetry page={page} who={who} stalled={stalled}>
+        <SchedulerTelemetry page={page} who={who} stalled={stalled} booked={booked?.[slug ?? ''] ?? booked?.['']}>
           <iframe
             src={frameUrl}
             title={frameTitle}
