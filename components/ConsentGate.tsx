@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, type ComponentType } from 'react';
+import { excludedBrowser } from '@/lib/analytics';
 
 /* The GA component is fetched only once someone has said yes.
  *
@@ -43,8 +44,16 @@ const KEY = 'wpw-analytics-consent';
 
 type Choice = 'granted' | 'declined' | null;
 
+/* A BROWSER /admin HAS EXCLUDED IS NEVER ASKED — 16 Oct 2026 (item 588).
+ * NoCountSwitch sets NO_COUNT_KEY (lib/analytics.ts) and track() then sends
+ * nothing, but GA's own automatic page_view went out regardless once GA had
+ * been accepted there. Read as declined: no banner, no GA, and the stored
+ * choice is left alone, so clearing the switch restores it. excludedBrowser
+ * is already in this chunk (track uses it), and the three returns below
+ * became one, so the layout chunk does not grow for it. */
 const read = (): Choice => {
   try {
+    if (excludedBrowser()) return 'declined';
     const v = localStorage.getItem(KEY);
     return v === 'granted' || v === 'declined' ? v : null;
   } catch {
@@ -81,9 +90,9 @@ export default function ConsentGate({ gaId }: { gaId: string }) {
     setChoice(c);
   };
 
-  if (choice === 'unset') return null;
-  if (choice === 'granted') return Ga ? <Ga gaId={gaId} /> : null;
-  if (choice === 'declined') return null;
+  /* 'unset' (not read yet) and 'declined' render nothing; 'granted' renders
+     GA once it has loaded; only null (never asked) shows the banner. */
+  if (choice !== null) return choice === 'granted' && Ga ? <Ga gaId={gaId} /> : null;
 
   return (
     <div

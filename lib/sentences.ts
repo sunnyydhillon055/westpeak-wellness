@@ -43,8 +43,33 @@ export const hasEnoughSentences = (text: string): boolean =>
  * form and by the route, like the sentence rule. */
 export const MIN_WORDS = 20;
 export const countWords = (text: string): number => text.trim().split(/\s+/).filter(Boolean).length;
-export const hasEnoughDetail = (text: string): boolean =>
-  hasEnoughSentences(text) && countWords(text) >= MIN_WORDS;
+
+/* A SECOND FLOOR, BUILT AND OFF — 16 Oct 2026 (item 577, deferred candidate 53).
+ *
+ * The ask-for-a-time form on /book asks for when a person is free; the
+ * floor above was written for a first message about what they want from
+ * counselling. All-time, the server turned back 13 enquiries for detail
+ * against 8 stored, 2 of them from /book. Whether a lighter floor for that
+ * one form is right is the owner's call, and the measure is set in
+ * DECISIONS (15 Oct): /admin's "short" and "one-sentence" blocks on /book
+ * against the /book enquiries stored. So the lighter floor exists and is
+ * switched off: TIME_REQUEST_FLOOR names the floor the #ask-for-a-time form
+ * uses, and it is 'enquiry', today's rule, until the owner flips it. Only
+ * that form sends form=time-request, and lib/inbound-submit.ts applies it
+ * only for a post from /book, as it does the /punjabi exemption. */
+export type FloorName = 'enquiry' | 'time-request';
+export type Floor = { sentences: number; words: number };
+export const ENQUIRY_FLOORS: Readonly<Record<FloorName, Floor>> = {
+  enquiry: { sentences: MIN_SENTENCES, words: MIN_WORDS },
+  'time-request': { sentences: 1, words: 10 },
+};
+/** The floor the /book ask-for-a-time form uses. 'enquiry' = unchanged. */
+export const TIME_REQUEST_FLOOR: FloorName = 'enquiry';
+/** The hidden field value that names the ask-for-a-time form. */
+export const TIME_REQUEST_FORM = 'time-request';
+
+export const hasEnoughDetail = (text: string, floor: Floor = ENQUIRY_FLOORS.enquiry): boolean =>
+  countSentences(text) >= floor.sentences && countWords(text) >= floor.words;
 
 /* THE RULE, SHOWN WHILE TYPING — 1 Oct 2026. Every label on the form was
  * screen-reader-only, the guidance vanished with the placeholder, and the
@@ -54,18 +79,19 @@ export const hasEnoughDetail = (text: string): boolean =>
  * not once per keystroke. The rule itself is hasEnoughDetail, unchanged. */
 export type DetailStage = 'short' | 'one-sentence' | 'enough';
 
-export function detailProgress(text: string): { words: number; stage: DetailStage; count: string; status: string } {
+export function detailProgress(text: string, floor: Floor = ENQUIRY_FLOORS.enquiry): { words: number; stage: DetailStage; count: string; status: string } {
   const words = countWords(text);
-  const stage: DetailStage = hasEnoughDetail(text) ? 'enough' : words >= MIN_WORDS ? 'one-sentence' : 'short';
+  const stage: DetailStage = hasEnoughDetail(text, floor) ? 'enough' : words >= floor.words ? 'one-sentence' : 'short';
+  const two = floor.sentences > 1;
   const count = stage === 'short'
-    ? `${words} of about ${MIN_WORDS} words`
+    ? `${words} of about ${floor.words} words`
     : stage === 'one-sentence'
-      ? `${words} words. Add a second sentence.`
+      ? `${words} words. ${two ? 'Add a second sentence.' : 'Finish the sentence.'}`
       : `${words} words. That is enough to send.`;
   const status = stage === 'short'
-    ? `Write about ${MIN_WORDS} words, in at least two sentences.`
+    ? `Write about ${floor.words} words${two ? ', in at least two sentences' : ''}.`
     : stage === 'one-sentence'
-      ? 'Enough words. Add a second sentence.'
+      ? `Enough words. ${two ? 'Add a second sentence.' : 'Finish the sentence.'}`
       : 'That is enough to send.';
   return { words, stage, count, status };
 }

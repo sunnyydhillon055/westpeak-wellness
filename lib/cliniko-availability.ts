@@ -3,7 +3,7 @@ import { api, headers } from './cliniko.ts';
 import { CLINIKO_BUSINESS, CONSULT_TYPE } from './site.ts';
 import { practitioners } from './practitioners.ts';
 import {
-  empty, summariseWindows, firstReadError, freshAvailability,
+  empty, summariseWindows, firstReadError, freshAvailability, firstLaterDay,
   type Availability, type StoredAvailability,
 } from './availability-summary.ts';
 
@@ -12,7 +12,9 @@ export {
   availabilityLine, nextFreeCallLine, nextFreeCallEntries, firstOpenDay,
 } from './availability-summary.ts';
 
-/* WHAT IS ACTUALLY OPEN — read from Cliniko, 14 Sep 2026; two weeks since 1 Oct.
+/* WHAT IS ACTUALLY OPEN — read from Cliniko, 14 Sep 2026; two weeks since 1 Oct;
+ * with an empty fortnight, the first open day up to five weeks out since
+ * 16 Oct 2026 (item 554, `later`).
  *
  * The site publishes no hours by decision: they depend on which counsellor a
  * person sees and only Cliniko knows what is open. That left every page
@@ -57,13 +59,21 @@ async function fetchOne(slug: string, practitionerId: string): Promise<Availabil
        nothing, which is the honest version. One signal covers both
        requests, which run side by side, so two weeks costs no more time. */
     const signal = AbortSignal.timeout(8_000);
-    const results = await Promise.all(windows.map(async ([f, t]) => {
+    const read = async (f: number, t: number): Promise<string[]> => {
       const res = await fetch(`${base}?from=${day(plus(f))}&to=${day(plus(t))}`, { headers: headers(a.key), signal });
       if (!res.ok) throw new Error(`HTTP ${res.status} ${(await res.text()).slice(0, 120)}`);
       const body = (await res.json()) as { available_times?: { appointment_start: string }[] };
       return (body.available_times ?? []).map((x) => x.appointment_start).filter(Boolean);
-    }));
-    return summariseWindows(slug, results[0]!, results[1]!);
+    };
+    const results = await Promise.all(windows.map(([f, t]) => read(f, t)));
+    const summary = summariseWindows(slug, results[0]!, results[1]!);
+    /* Nothing in the two weeks: up to three more weeks, one at a time, under
+       the same timeout and the same cache entry, for the first open day only
+       (item 554, lib/availability-summary.ts LATER_WINDOWS). A failure there
+       leaves the fourteen-day answer exactly as it was. */
+    if (summary.count > 0) return summary;
+    const later = await firstLaterDay(read);
+    return later ? { ...summary, later } : summary;
   } catch (e) {
     return empty(slug, e instanceof Error ? e.message : 'request failed');
   }

@@ -110,6 +110,16 @@ export type BookData = {
   rccPlain: string;
   embedParam: string;
   builtAt: number;
+  /* WHAT CLINIKO’S FORM ASKS, AND WHETHER IT STILL HAS A PAYMENT STEP —
+     16 Oct 2026 (item 553). bookingFormLine() and consultPaymentStepOff,
+     read on the server (lib/practice-facts.ts, lib/site.ts) and passed as
+     plain data, like rccPlain: no client file imports either module. */
+  bookingForm: string;
+  paymentStepOff: boolean;
+  /* The panel shown above the frame once Cliniko confirms (item 569), per
+     roster slug, and under '' for the practice-wide calendar, which names
+     nobody. bookedPanelText() in lib/practice-facts.ts. */
+  booked: Record<string, string>;
 };
 
 /* Inline styles kept verbatim from the server page. */
@@ -144,7 +154,9 @@ function FeesText({ phrase }: { phrase: string | null }) {
 function CardAvailability({ all, slug, first }: { all: ClientAvailability | null; slug: string; first: string }) {
   const a = bookSummary(all, slug);
   const line = availabilityLine(a, first);
-  const short = shortAvailabilityLine(a);
+  /* Nothing in the two weeks but a day further on (item 554): the day,
+     never "no open times", which read as a counsellor with no calendar. */
+  const short = a && !a.error && a.count === 0 && a.later ? `Next free day: ${a.later}.` : shortAvailabilityLine(a);
   return line ? (
     <p className="bk-card__open">
       <span className="bk-long">{line}</span>
@@ -161,7 +173,7 @@ function NextOpen({ all, people }: { all: ClientAvailability | null; people: Boo
   const lines = people
     .filter((p) => p.clinikoPractitionerId)
     .map((p) => ({ first: p.name.split(' ')[0], a: bookSummary(all, p.slug) }))
-    .filter(({ a }) => a && !a.error && (a.next?.length ?? 0) > 0);
+    .filter(({ a }) => a && !a.error && ((a.next?.length ?? 0) > 0 || !!a.later));
   if (!lines.length) {
     return (
       <p style={P_NEXT}>
@@ -174,9 +186,16 @@ function NextOpen({ all, people }: { all: ClientAvailability | null; people: Boo
   return (
     <>
       {lines.map(({ first, a }) => (
-        <p key={first} style={P_NEXT}>
-          <strong>Next open with {first}{PACIFIC}:</strong> {a!.next.join(' · ')}
-        </p>
+        a!.next.length ? (
+          <p key={first} style={P_NEXT}>
+            <strong>Next open with {first}{PACIFIC}:</strong> {a!.next.join(' · ')}
+          </p>
+        ) : (
+          /* The first open day past the two weeks, a day only (item 554). */
+          <p key={first} style={P_NEXT}>
+            <strong>Next free consultation day with {first}{PACIFIC}:</strong> {a!.later}
+          </p>
+        )
       ))}
     </>
   );
@@ -297,78 +316,28 @@ export default function BookChoice({
           <ul className="book-facts">
             <li>15 minutes</li>
             <li>Online only · secure video</li>
-            <li>No card</li>
-            <li>No intake form</li>
+            {/* NOT "No card" WHILE CLINIKO STILL OFFERS PAY NOW / PAY LATER —
+                16 Oct 2026 (item 553). The form at the end of the calendar
+                asks for name, date of birth, email, mobile and two consent
+                boxes, and showed a payment choice on 15 Oct. Both chips
+                return when the owner switches that step off and
+                consultPaymentStepOff (lib/site.ts) is flipped. */}
+            <li>{data.paymentStepOff ? 'No card' : 'Free'}</li>
+            <li>{data.paymentStepOff ? 'No intake form' : 'One short booking form'}</li>
             {/* Not the 24-hour cancellation chip (1 Oct 2026): under a free,
                 no-card call that implied a later cancellation costs something.
                 The 24-hour rule is for paid sessions, on /pricing. */}
             <li>No charge to move or cancel it</li>
           </ul>
 
-          {/* WHAT THE 15 MINUTES ARE — in view, not behind a disclosure (1 Oct 2026). */}
-          <ul className="book-what">
-            <li>
-              <strong>Who you talk to.</strong>{' '}
-              {who
-                ? `${who.name.split(' ')[0]} directly — the counsellor you would see, not an intake worker.`
-                : `${accepting.map((p) => p.name.split(' ')[0]).join(' or ')} directly — the counsellor you would see, not an intake worker.`}{' '}
-              {/* What the letters mean, once, in plain words (lib/site.ts). */}
-              Registered Clinical Counsellor means {data.rccPlain}.
-            </li>
-            <li>
-              <strong>What is asked.</strong> What brought {couples ? 'the two of you' : 'you'} here, in
-              your own words. No form, and no history to assemble.
-            </li>
-            <li>
-              <strong>What it costs.</strong> Nothing is charged and no card is taken. You decide
-              afterwards, in your own time.
-              <FeesText phrase={fees} />
-              {/* 15 Oct to 31 Dec only, on the Pacific date (lib/seasonal.ts). */}
-              {planYearPageLineShown(now) && (
-                <>
-                  {' '}If your plan runs on the calendar year, a session held on or before 31 December
-                  counts against this year&rsquo;s maximum; whether yours does is in your plan
-                  booklet; <Link href={YEAR_END_PATH}>how the plan year affects a claim</Link>.
-                </>
-              )}
-              {/* 1 Jan to 15 Feb only, the January counterpart (item 513). */}
-              {planResetPageLineShown(now) && (
-                <>
-                  {' '}{PLAN_RESET_LINE}{' '}
-                  <Link href={YEAR_END_PATH}>What resets on 1 January, and what does not</Link>.
-                </>
-              )}
-            </li>
-          </ul>
-
-          {/* ?with= HAS ALREADY CHOSEN — 1 Oct 2026. One row instead of the
-              two cards, with the way back to the choice. */}
-          {accepting.length > 1 && who && (
-            <div
-              className="card"
-              style={{ display: 'flex', gap: 12, alignItems: 'center', margin: '16px 0 12px', padding: '10px 14px' }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-              {who.img && <img {...who.img.row} />}
-              <div>
-                <p style={{ margin: 0, fontSize: '.95rem', lineHeight: 1.45 }}>
-                  <strong>Booking with {who.letters}</strong> · {who.languages.map((l) => l.name).join(' and ')}
-                </p>
-                <p style={{ margin: '2px 0 0', fontSize: '.88rem', lineHeight: 1.45, color: 'var(--ink-soft)' }}>
-                  {accepting.filter((p) => p.slug !== who.slug).map((p) => (
-                    <span key={p.slug}>
-                      <Link href={`${site.bookingPath}?with=${p.slug}#calendar`}>
-                        Switch to {p.name.split(' ')[0]}
-                      </Link>
-                      {' · '}
-                    </span>
-                  ))}
-                  <Link href={site.bookingPath}>See both calendars</Link>
-                </p>
-              </div>
-            </div>
-          )}
-
+          {/* THE CHOICE BEFORE THE EXPLAINER — 16 Oct 2026 (item 560). On
+              production /book at 375x812 the heading sat at y=1,094 and the
+              first "Book with" button at 1,335, under the 15-minute
+              explainer, the plan-year line and the fees; 13 of 19 arrivals
+              since 4 Oct named nobody, against 11 calendar opens. Bare /book
+              now shows who you can talk to straight after the facts. The
+              explainer follows, still in view and not behind a disclosure
+              (the rule of 1 Oct). With ?with= nothing moves. */}
           {accepting.length > 1 && !who && (
             <div className="book-choose" style={{ margin: '18px 0 14px' }}>
               <h2 style={{ margin: '0 0 12px', fontSize: '1.45rem' }}>Who would you like to talk to?</h2>
@@ -422,6 +391,70 @@ export default function BookChoice({
                   Compare {accepting.map((p) => p.name.split(' ')[0]).join(' and ')} side by side
                 </Link>.
               </p>
+            </div>
+          )}
+
+          {/* WHAT THE 15 MINUTES ARE — in view, not behind a disclosure (1 Oct 2026). */}
+          <ul className="book-what">
+            <li>
+              <strong>Who you talk to.</strong>{' '}
+              {who
+                ? `${who.name.split(' ')[0]} directly — the counsellor you would see, not an intake worker.`
+                : `${accepting.map((p) => p.name.split(' ')[0]).join(' or ')} directly — the counsellor you would see, not an intake worker.`}{' '}
+              {/* What the letters mean, once, in plain words (lib/site.ts). */}
+              Registered Clinical Counsellor means {data.rccPlain}.
+            </li>
+            <li>
+              <strong>What is asked.</strong> What brought {couples ? 'the two of you' : 'you'} here, in
+              your own words. No intake form, and no history to assemble.
+            </li>
+            <li>
+              <strong>What it costs.</strong> Nothing is charged and no card is taken. You decide
+              afterwards, in your own time.
+              <FeesText phrase={fees} />
+              {/* 15 Oct to 31 Dec only, on the Pacific date (lib/seasonal.ts). */}
+              {planYearPageLineShown(now) && (
+                <>
+                  {' '}If your plan runs on the calendar year, a session held on or before 31 December
+                  counts against this year&rsquo;s maximum; whether yours does is in your plan
+                  booklet; <Link href={YEAR_END_PATH}>how the plan year affects a claim</Link>.
+                </>
+              )}
+              {/* 1 Jan to 15 Feb only, the January counterpart (item 513). */}
+              {planResetPageLineShown(now) && (
+                <>
+                  {' '}{PLAN_RESET_LINE}{' '}
+                  <Link href={YEAR_END_PATH}>What resets on 1 January, and what does not</Link>.
+                </>
+              )}
+            </li>
+          </ul>
+
+          {/* ?with= HAS ALREADY CHOSEN — 1 Oct 2026. One row instead of the
+              two cards, with the way back to the choice. */}
+          {accepting.length > 1 && who && (
+            <div
+              className="card"
+              style={{ display: 'flex', gap: 12, alignItems: 'center', margin: '16px 0 12px', padding: '10px 14px' }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+              {who.img && <img {...who.img.row} />}
+              <div>
+                <p style={{ margin: 0, fontSize: '.95rem', lineHeight: 1.45 }}>
+                  <strong>Booking with {who.letters}</strong> · {who.languages.map((l) => l.name).join(' and ')}
+                </p>
+                <p style={{ margin: '2px 0 0', fontSize: '.88rem', lineHeight: 1.45, color: 'var(--ink-soft)' }}>
+                  {accepting.filter((p) => p.slug !== who.slug).map((p) => (
+                    <span key={p.slug}>
+                      <Link href={`${site.bookingPath}?with=${p.slug}#calendar`}>
+                        Switch to {p.name.split(' ')[0]}
+                      </Link>
+                      {' · '}
+                    </span>
+                  ))}
+                  <Link href={site.bookingPath}>See both calendars</Link>
+                </p>
+              </div>
             </div>
           )}
 
@@ -494,6 +527,13 @@ export default function BookChoice({
                   Every session, this one included, is by secure video from wherever you are. There
                   is nowhere to attend, whatever address the booking summary shows.
                 </p>
+                {/* WHAT THE LAST STEP ASKS — 16 Oct 2026 (item 553), from
+                    lib/practice-facts.ts via the server page. In the static
+                    HTML, above the box, so it is read before the frame is
+                    opened and stays in view while it is used. */}
+                <p style={{ margin: '6px 0 0', fontSize: '.92rem', lineHeight: 1.55, color: 'var(--ink-soft)' }}>
+                  {data.bookingForm}
+                </p>
                 {couples && (
                   <p style={{ margin: '8px 0 0', fontSize: '.95rem', lineHeight: 1.55 }}>
                     <strong>For the two of you:</strong> one of you picks the time, and both partners
@@ -513,6 +553,15 @@ export default function BookChoice({
                 who={who?.slug}
                 first={who?.name.split(' ')[0]}
                 openDetail={couples ? 'couples' : undefined}
+                /* YOU ARE BOOKED, ABOVE THE FRAME — 16 Oct 2026 (item 569).
+                   Shown by SchedulerTelemetry when Cliniko posts its
+                   confirmation, for whichever counsellor's calendar it was. */
+                booked={Object.fromEntries(Object.entries(data.booked).map(([k, text]) => [k, (
+                  <>
+                    {text}{' '}
+                    <Link href="/resources/before-your-first-consultation">What to expect on the call</Link>.
+                  </>
+                )]))}
                 cta="Show available times"
                 /* ONE BUTTON PER COUNSELLOR ON BARE /book — 15 Oct 2026
                    (item 537). 68% of arrivals since 4 Oct named nobody, and
@@ -595,6 +644,9 @@ export default function BookChoice({
                   done={sent}
                   doneExtra={sentDays}
                   practitioner={who?.slug}
+                  /* Item 577: the time-request floor, which ships as today's
+                     enquiry floor (TIME_REQUEST_FLOOR in lib/sentences.ts). */
+                  floor="time-request"
                   title="Ask for a time"
                   note="Two or three sentences: when you are usually free, and what you are looking for. You will hear back within one business day."
                   placeholder="Which days and times usually suit you, then a sentence or two on what you are looking for."

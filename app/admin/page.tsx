@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import '@/app/private.css';
 import type { Metadata } from 'next';
 import { LOOKING, WHERE, TIMING, labelOf } from '@/lib/enquiry-fields';
@@ -17,7 +18,7 @@ import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
-import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings, bookingCredit, refusalRows, toolFunnel } from '@/lib/conversion-log';
+import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings, bookingCredit, refusalRows, toolFunnel, stepRows } from '@/lib/conversion-log';
 import { TOOL_OUTCOMES, EMBEDDED_TOOLS } from '@/lib/conversion-detail';
 import { readBookingTally, tallyRows, tallyLine, tallyBookedSince, bookedGap } from '@/lib/booking-tally-read';
 import { funnelJoins, consultLines, enquiryLines, retentionLines, arrivalRows } from '@/lib/funnel-report';
@@ -96,6 +97,8 @@ const REFUSAL_LABEL: Record<string, string> = {
   detail: 'under about twenty words or one sentence',
   choices: 'a required choice missing',
   repeated: 'same text in every field',
+  /* Read before every other rule since 16 Oct 2026 (item 589). */
+  bot: 'hidden field filled: a script, not a person',
 };
 const BLOCK_LABEL: Record<string, string> = {
   short: 'under about twenty words',
@@ -958,7 +961,7 @@ export default async function AdminPage({
               <>
                 <h3 style={{ marginTop: 22 }}>Messages the form turned back</h3>
                 <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Counted since 1 Oct 2026, by the rule the message failed. Nothing of what was typed is kept. A high &ldquo;detail&rdquo; count means the twenty-word rule is stopping people.</p>
-                <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Since 15 Oct 2026 each refusal says whether the form had been on screen more than 2.5 seconds when it was sent: &ldquo;stamped&rdquo; reads as a person, &ldquo;unstamped&rdquo; as a script or a browser without JavaScript. Earlier refusals carry neither.</p>
+                <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Since 15 Oct 2026 each refusal says whether the form had been on screen more than 2.5 seconds when it was sent: &ldquo;stamped&rdquo; reads as a person, &ldquo;unstamped&rdquo; as a script or a browser without JavaScript. Earlier refusals carry neither. Since 16 Oct 2026 the hidden field only scripts fill is read before every other rule, so scripts have their own line and no longer swell the address and twenty-word counts.</p>
                 <ul className="admin-terms">
                   {refusals.map((r) => (
                     <li key={r.reason}>
@@ -1074,10 +1077,21 @@ export default async function AdminPage({
             <h3 style={{ marginTop: 22 }}>/book, stage by stage</h3>
             <ul className="admin-terms">
               {funnelCuts(log).book.map((r) => (
-                <li key={r.who}>
-                  <span>{r.who === 'all' ? 'all arrivals' : r.who === 'none' ? 'nobody named' : r.who === 'ask' ? 'the ask-for-a-time form' : r.who}</span>
-                  <span>{r.arrive} arrived{r.open === null ? '' : ` · ${r.open} opened the calendar`} · {r.interact} touched · {r.booked} booked</span>
-                </li>
+                <Fragment key={r.who}>
+                  <li>
+                    <span>{r.who === 'all' ? 'all arrivals' : r.who === 'none' ? 'nobody named' : r.who === 'ask' ? 'the ask-for-a-time form' : r.who}</span>
+                    <span>{r.arrive} arrived{r.open === null ? '' : ` · ${r.open} opened the calendar`} · {r.interact} touched · {r.booked} booked</span>
+                  </li>
+                  {/* Each step inside Cliniko's frame, between touched and
+                      booked (scheduler_step, counted from 16 Oct 2026, item
+                      555): the names are Cliniko's own, busiest first. */}
+                  {r.who === 'all' && stepRows(log).map((st) => (
+                    <li key={`step-${st.detail}`}>
+                      <span>&nbsp;&nbsp;reached Cliniko&rsquo;s &ldquo;{st.detail}&rdquo; step</span>
+                      <span>{st.count}</span>
+                    </li>
+                  ))}
+                </Fragment>
               ))}
               {/* Cliniko's own count beside the embed's (15 Oct 2026): a gap
                   that stays points at bookings made outside the embed. */}

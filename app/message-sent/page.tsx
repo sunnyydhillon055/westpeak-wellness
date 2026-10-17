@@ -9,6 +9,7 @@ import { practitioners } from '@/lib/practitioners';
 import { consultationAvailability, nextFreeCallEntries } from '@/lib/cliniko-availability';
 import { PACIFIC } from '@/lib/availability-summary';
 import { bookHrefFor } from '@/lib/city-service-page';
+import GaLeadOnMount from '@/components/GaLeadOnMount';
 
 /* Rebuilt hourly so the measured reply time (components/MeasuredReply.tsx)
    follows the store. Until five replies are measured it renders nothing and
@@ -62,6 +63,9 @@ export default async function MessageSentPage() {
   );
   return (
     <div>
+      {/* GA4's generate_lead, GA only (item 588): the server counted the
+          enquiry when it stored it, before redirecting here. */}
+      <GaLeadOnMount form="enquiry" />
       <section className="hero" style={{ paddingBottom: 40 }}>
         <div className="container container--narrow">
           <p className="eyebrow">Message sent</p>

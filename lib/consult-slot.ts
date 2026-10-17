@@ -22,7 +22,10 @@ import { nextConsultEntries, nextConsultNoneOpen, noConsultSentence, type NextCo
 
 /** What /api/availability returns: one entry per counsellor Cliniko was read
  *  for successfully. An entry missing means unknown, never "nothing open". */
-export type ClientAvailability = Record<string, { first: string; next: string[]; count: number }>;
+/*  `later` (16 Oct 2026, item 554): with nothing open in the two weeks, the
+ *  first day Cliniko has a consultation open in days 15-35, e.g. "Mon 4 Jan".
+ *  A day only; absent when there is none or the longer read failed. */
+export type ClientAvailability = Record<string, { first: string; next: string[]; count: number; later?: string }>;
 
 /** A counsellor a slot may name, decided on the server. */
 export type SlotPerson = { slug: string; first: string; href: string };
@@ -129,6 +132,7 @@ export function resetAvailabilityForTests(): void {
 export type BookSummary = {
   slug: string; count: number; next: string[]; days: string[];
   earliest: string; latest: string; weekend: boolean; evening: boolean; error?: string;
+  later?: string;
 };
 export function bookSummary(all: ClientAvailability | null | undefined, slug: string): BookSummary | undefined {
   const a = all?.[slug];
@@ -136,5 +140,6 @@ export function bookSummary(all: ClientAvailability | null | undefined, slug: st
   return {
     slug, count: a.count, next: Array.isArray(a.next) ? a.next : [],
     days: [], earliest: '', latest: '', weekend: false, evening: false,
+    ...(typeof a.later === 'string' && a.later ? { later: a.later } : {}),
   };
 }

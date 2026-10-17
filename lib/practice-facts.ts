@@ -188,3 +188,36 @@ export const notTakingLine = (acceptingFirstNames: string[], fallbackFirst?: str
   if (fallbackFirst) return `${head} ${fallbackFirst} is, and the consultation below is with her.`;
   return head;
 };
+
+/* WHAT CLINIKO'S BOOKING FORM ASKS FOR — 16 Oct 2026 (item 553).
+ *
+ * /book promised "No card" and "No intake form" above a calendar whose last
+ * step, as seen on Cliniko's page on 15 Oct (docs/OUTREACH.md section 22),
+ * asks for first and last name, date of birth, email and mobile, two "I
+ * accept" boxes, and offers Pay now or Pay later. The conversion log had 11
+ * calendar opens to 1 booking. Saying what the form asks before anyone
+ * reaches it is cheaper than a surprise at the last step. The Pay-later
+ * clause goes when site's consultPaymentStepOff is flipped (lib/site.ts);
+ * if date of birth and mobile are made optional in Cliniko (section 22,
+ * step 4), the field list is the one edit. Rendered on the server by
+ * app/book/page.tsx and passed to /book's island as text. */
+export const BOOKING_FORM_FIELDS = 'your name, date of birth, email and mobile, and two consent boxes';
+
+/** The line under /book's calendar heading. */
+export const bookingFormLine = (paymentStepOff: boolean): string =>
+  `The booking page asks for ${BOOKING_FORM_FIELDS}.${paymentStepOff ? '' : ' The consultation is free; if it offers Pay now or Pay later, choose Pay later.'}`;
+
+/* AFTER CLINIKO CONFIRMS — 16 Oct 2026 (item 569). The frame's own
+ * confirmation was all a first-time booker saw, and of 4 consultations
+ * booked in September and October 1 was missed. /book now puts this above
+ * the frame when Cliniko posts its confirmation. Each sentence is one /book
+ * already makes: the confirmation email carries the video link ("After you
+ * book"), nothing to install, CAMERA_OPTIONAL, and the "No charge to move or
+ * cancel it" chip, which is about the free consultation (the 24-hour rule in
+ * lib/policies.ts is for paid sessions and is deliberately not repeated
+ * here). No fee. */
+export const CONSULT_NO_CHARGE = 'No charge to move or cancel it';
+
+/** The panel's text, for one counsellor or (practice-wide calendar) none. */
+export const bookedPanelText = (first?: string): string =>
+  `${first ? `Booked with ${first}.` : 'Booked.'} Cliniko is emailing your confirmation now; the video link is in it (check spam). Nothing to install; ${CAMERA_OPTIONAL.charAt(0).toLowerCase()}${CAMERA_OPTIONAL.slice(1)} ${CONSULT_NO_CHARGE}: use the link in that email.`;

@@ -139,7 +139,10 @@ test('the sticky bar fires book_click and the forms no longer fire anything', ()
        browser checks stopped (enquiry_blocked), which never reaches the
        server and so cannot be counted twice. Nothing fires on submit. */
     const calls = [...src.matchAll(/\btrack\(([^,]+),/g)].map((m) => m[1]!.trim());
-    assert.deepEqual(calls, f === 'components/InboundForm.tsx' ? ['BLOCKED_EVENT as TrackedEvent'] : [], `${f} still fires a client event`);
+    /* 'enquiry_blocked' is a TrackedEvent since 16 Oct 2026 (item 555), so
+       the widened constant is gone. gaLead (lib/ga-lead.ts) is GA only and
+       never reaches the counter. */
+    assert.deepEqual(calls, f === 'components/InboundForm.tsx' ? ["'enquiry_blocked'"] : [], `${f} still fires a client event`);
     assert.doesNotMatch(src, /onSubmit=\{[^}]*track\(/, `${f} fires on submit`);
   }
   const submit = readFileSync(join(ROOT, 'lib/inbound-submit.ts'), 'utf8');
@@ -301,4 +304,56 @@ test('a refused enquiry is counted by the rule it failed, and nothing else', () 
   for (const r of ['email', 'detail', 'choices', 'repeated']) assert.equal(allowedDetail('enquiry_refused', r), r);
   assert.equal(allowedDetail('enquiry_refused', 'someone@example.com'), null);
   assert.equal(allowedDetail('enquiry_refused', 'I need help with'), null);
+});
+
+/* ---------- Round 11 (wf/r11-booking-telemetry-forms), 16 Oct 2026 ---------- */
+import { refusalRows } from '@/lib/conversion-log';
+import {
+  hasEnoughDetail, detailProgress, ENQUIRY_FLOORS, TIME_REQUEST_FLOOR, TIME_REQUEST_FORM, MIN_WORDS, MIN_SENTENCES,
+} from '@/lib/sentences';
+
+/* #589 */
+test('the honeypot is read before every other rule, and a bot is counted as a bot', async () => {
+  const sub = readFileSync(join(ROOT, 'lib/inbound-submit.ts'), 'utf8');
+  const hp = sub.indexOf("if (o.kind === 'enquiry' && honeypot.trim()) {");
+  assert.ok(hp > 0, 'the early honeypot check');
+  for (const later of ["return refuse('email')", "return refuse('detail')", "return refuse('choices')", "return refuse('repeated')", 'await addInbound(']) {
+    assert.ok(hp < sub.indexOf(later), `honeypot before ${later}`);
+  }
+  assert.match(sub.slice(hp, hp + 400), /countConversion\('enquiry_refused', source, `bot:\$\{stamp\}`\);[\s\S]*?return back\('ok'\);/, 'counted, then the silent ok');
+
+  assert.equal(allowedDetail('enquiry_refused', 'bot:unstamped'), 'bot:unstamped');
+  assert.equal(allowedDetail('enquiry_refused', 'bot:stamped'), 'bot:stamped');
+  const io = memoryLedger();
+  const s = createConversionStore(() => io, { backoffMs: 0 });
+  await s.count('enquiry_refused', '/contact', 'bot:unstamped');
+  await s.count('enquiry_refused', '/contact', 'email:unstamped');
+  await s.count('enquiry_refused', '/contact', 'bot:unstamped');
+  const rows = refusalRows(await s.read({ fresh: true }));
+  assert.deepEqual(rows.map((r) => [r.reason, r.unstamped]), [['bot', 2], ['email', 1]], 'bots on their own line');
+  assert.match(readFileSync(join(ROOT, 'app/admin/page.tsx'), 'utf8'), /bot: 'hidden field filled: a script, not a person',/);
+});
+
+/* #577 */
+test('the time-request floor exists, is off, and only /book’s ask-for-a-time form can use it', () => {
+  assert.equal(TIME_REQUEST_FLOOR, 'enquiry', 'ships as today’s rule: the owner flips it');
+  assert.deepEqual(ENQUIRY_FLOORS.enquiry, { sentences: MIN_SENTENCES, words: MIN_WORDS });
+  assert.deepEqual(ENQUIRY_FLOORS['time-request'], { sentences: 1, words: 10 });
+  const tenWords = 'Tuesday or Thursday mornings suit me best for a call';
+  assert.equal(hasEnoughDetail(tenWords), false, 'the enquiry floor refuses it');
+  assert.equal(hasEnoughDetail(tenWords, ENQUIRY_FLOORS['time-request']), true, 'the lighter floor would take it');
+  assert.equal(hasEnoughDetail(tenWords, ENQUIRY_FLOORS[TIME_REQUEST_FLOOR]), false, 'and today nothing changes');
+  assert.equal(detailProgress('', ENQUIRY_FLOORS['time-request']).count, '0 of about 10 words');
+  assert.equal(detailProgress('').count, `0 of about ${MIN_WORDS} words`, 'the default is unchanged');
+
+  const book = readFileSync(join(ROOT, 'components/BookChoice.tsx'), 'utf8');
+  assert.equal([...book.matchAll(/floor="time-request"/g)].length, 1, 'one form only');
+  const ask = book.slice(book.indexOf('id="ask-for-a-time"'));
+  assert.match(ask.slice(0, ask.indexOf('</InboundForm>') > 0 ? ask.indexOf('</InboundForm>') : 2000), /floor="time-request"/, 'and it is the ask-for-a-time form');
+  const form = readFileSync(join(ROOT, 'components/InboundForm.tsx'), 'utf8');
+  assert.match(form, /\{floor && <input type="hidden" name="form" value=\{TIME_REQUEST_FORM\} \/>\}/);
+  assert.equal(TIME_REQUEST_FORM, 'time-request');
+  const sub = readFileSync(join(ROOT, 'lib/inbound-submit.ts'), 'utf8');
+  assert.match(sub, /const timeRequest = source === site\.bookingPath && String\(form\.get\('form'\) \?\? ''\) === TIME_REQUEST_FORM;/);
+  assert.match(sub, /if \(o\.kind === 'enquiry' && !hasEnoughDetail\(message, floor\)\) return refuse\('detail'\);/);
 });

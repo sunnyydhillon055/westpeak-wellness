@@ -78,7 +78,7 @@ const LOADING = 'Calendar loading. If it does not appear, ask for a time by emai
 type Choice = { slug: string; url: string; label: string; title: string };
 
 export default function SchedulerGate({
-  url, title: baseTitle, page, who, cta, children, secondary, openDetail, stalled, choices,
+  url, title: baseTitle, page, who, cta, children, secondary, openDetail, stalled, choices, booked,
 }: {
   url: string;
   title: string;
@@ -101,6 +101,9 @@ export default function SchedulerGate({
   stalled?: React.ReactNode;
   /** One button per counsellor in place of `cta`. */
   choices?: Choice[];
+  /** The panel SchedulerTelemetry shows once Cliniko confirms (item 569),
+   *  by roster slug, '' for a calendar that names nobody. /book only. */
+  booked?: Record<string, React.ReactNode>;
 }) {
   const [open, setOpen] = useState(false);
   const [chosen, setChosen] = useState<Choice | null>(null);
@@ -158,7 +161,7 @@ export default function SchedulerGate({
     return (
       <div ref={box} tabIndex={-1} role="region" aria-label={title} style={{ outline: 'none' }}>
         <p className="sr-only" role="status" aria-live="polite">{status}</p>
-        <SchedulerTelemetry page={page} who={chosen?.slug ?? who} stalled={stalled}>
+        <SchedulerTelemetry page={page} who={chosen?.slug ?? who} stalled={stalled} booked={booked?.[chosen?.slug ?? who ?? ''] ?? booked?.['']}>
           <iframe
             src={chosen?.url ?? url}
             title={title}

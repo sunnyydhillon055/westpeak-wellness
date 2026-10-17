@@ -307,3 +307,20 @@ export const LOCALITY_VISIBLE_NOTE = 'sessions by secure video only, no office';
    registration number, which belongs on the counsellor's own profile. */
 export const RCC_PLAIN =
   'a master’s degree in counselling, supervised clinical hours, a code of ethics and a complaints process through the BC Association of Clinical Counsellors (BCACC), the professional body that grants the RCC and keeps a register you can check yourself';
+
+/* THE FREE CONSULTATION'S PAYMENT STEP — 16 Oct 2026 (item 553).
+ *
+ * False while Cliniko's booking page still shows Pay now / Pay later for the
+ * free consultation (seen on 15 Oct, docs/OUTREACH.md section 22). While it
+ * is false /book says "Free" rather than "No card" and the line under the
+ * calendar heading tells people to choose Pay later. Flip it to true once
+ * online payments are switched off for the consultation type in Cliniko and
+ * a booking on a phone has been tried without the step (items 2 and 3 of
+ * docs/OWNER-ACTIONS-2026-10-15.md); /book then says "No card" again and
+ * the Pay-later clause goes.
+ *
+ * A named export, not a field on `site`: `site` is read by client components
+ * and so ships in the root layout's chunk, where every byte is paid on every
+ * page. Only server code reads this (app/book/page.tsx and /admin's
+ * waiting-on-you row), so it never reaches a browser. */
+export const consultPaymentStepOff = false as boolean;

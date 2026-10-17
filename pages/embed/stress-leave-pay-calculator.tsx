@@ -7,12 +7,7 @@ import { fontVars, body as bodyFont } from '@/app/fonts';
    the page receives four numbers and two strings, never the modules. */
 import { eiSicknessMax, EI_WAITING_WAIVER, longDate } from '@/lib/benefit-figures';
 import { site } from '@/lib/site';
-import { track, type TrackedEvent } from '@/lib/analytics';
-
-/* Counted (COUNTED in lib/conversion-log.ts), not yet in TrackedEvent, which
-   lives in the shared lib/analytics.ts; a type-only addition there at
-   integration removes this widening. */
-const EMBED_EVENT: string = 'embed_view';
+import { track } from '@/lib/analytics';
 
 /* THE EMBEDDABLE STRESS-LEAVE PAY CALCULATOR — 15 Oct 2026.
  *
@@ -62,7 +57,7 @@ export default function EmbedLeavePay({ ei, waiver, origin }: Props) {
     if (window.parent === window) return;
     let host = '';
     try { host = document.referrer ? new URL(document.referrer).hostname : ''; } catch { /* unreadable: other */ }
-    track(EMBED_EVENT as TrackedEvent, { detail: host || 'none' });
+    track('embed_view', { detail: host || 'none' });
   }, []);
 
   /* Auto-height, for a host page that adds the optional listener in the

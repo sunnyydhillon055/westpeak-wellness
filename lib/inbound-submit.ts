@@ -13,7 +13,7 @@ import { site } from '@/lib/site';
 import { practitioners, withLetters } from '@/lib/practitioners';
 import { clientKey, rateCheck } from '@/lib/rate-limit';
 import { routeInbound } from '@/lib/inbound-routing';
-import { hasEnoughDetail } from '@/lib/sentences';
+import { hasEnoughDetail, ENQUIRY_FLOORS, TIME_REQUEST_FLOOR, TIME_REQUEST_FORM } from '@/lib/sentences';
 import { EMPLOYER, choicesComplete } from '@/lib/enquiry-fields';
 import { countConversion } from '@/lib/conversion-log';
 import { MAGNET_KEYS, STAMPED_AFTER_MS } from '@/lib/conversion-detail';
@@ -113,6 +113,24 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
 
   const honeypot = String(form.get(HONEYPOT) ?? '');
 
+  /* THE HONEYPOT FIRST — 16 Oct 2026 (item 589). It used to be read after
+   * the address and the message floor, so a script that filled the hidden
+   * field and sent a bad address or a short message was counted as an
+   * "email" or "detail" refusal: 31 refusals since 1 Oct (email 15, detail
+   * 13) against 8 stored enquiries, 8 of them from probe paths such as
+   * "/online-counselling/new-westminster')", and the browser enforces the
+   * same address pattern, so the email refusals were posts that never ran
+   * the form. Those counts are the measure the twenty-word decision rests
+   * on. A filled honeypot on an enquiry is now counted as `bot` and given
+   * the same silent ok a quarantined post gets, and nothing is stored or
+   * sent. A lead is unchanged: it is stored quarantined as before
+   * (lib/nurture.ts and /admin read those records), and leads have no
+   * refusal count to inflate. */
+  if (o.kind === 'enquiry' && honeypot.trim()) {
+    try { await countConversion('enquiry_refused', source, `bot:${stamp}`); } catch { /* never load-bearing */ }
+    return back('ok');
+  }
+
   const email = String(form.get('email') ?? '').trim().toLowerCase();
   const name = String(form.get('name') ?? '').trim();
   const message = String(form.get('message') ?? '').trim();
@@ -135,7 +153,13 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
    * what the person is looking for — the same rule the form applies in the
    * browser, held here for a post that skipped it. See lib/sentences.ts. A
    * lead legitimately carries nothing but an address. */
-  if (o.kind === 'enquiry' && !hasEnoughDetail(message)) return refuse('detail');
+  /* /book's ask-for-a-time form names itself (form=time-request) and is held
+   * to ENQUIRY_FLOORS[TIME_REQUEST_FLOOR] (lib/sentences.ts, item 577), only
+   * when the post says it came from /book, as with the /punjabi exemption
+   * below. TIME_REQUEST_FLOOR is 'enquiry', so today this is the same rule. */
+  const timeRequest = source === site.bookingPath && String(form.get('form') ?? '') === TIME_REQUEST_FORM;
+  const floor = timeRequest ? ENQUIRY_FLOORS[TIME_REQUEST_FLOOR] : ENQUIRY_FLOORS.enquiry;
+  if (o.kind === 'enquiry' && !hasEnoughDetail(message, floor)) return refuse('detail');
 
   /* THE THREE CHOICES — 25 Sep 2026. Required for an enquiry and only
    * accepted from the list the form offers; anything else is a post that did

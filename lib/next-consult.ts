@@ -14,7 +14,7 @@
        Punjabi-speaking counsellor and nobody else.
    Both narrow; neither can add anybody the accepting/bookable rule left out. */
 
-type Slot = { slug: string; count: number; next: string[]; error?: string };
+type Slot = { slug: string; count: number; next: string[]; error?: string; later?: string };
 type Person = {
   slug: string;
   name: string;
@@ -38,7 +38,14 @@ export function nextConsultEntries(
     if (filter.slugs && !filter.slugs.includes(p.slug)) continue;
     if (filter.language && !(p.languages ?? []).some((l) => l.tag === filter.language)) continue;
     const a = all[p.slug];
-    if (!a || a.error || a.count <= 0 || !a.next?.length) continue;
+    if (!a || a.error) continue;
+    /* NOTHING IN THE TWO WEEKS, A DAY FURTHER ON — 16 Oct 2026 (item 554).
+       The first open day in days 15-35 (lib/cliniko-availability.ts), a day
+       only, instead of dropping her from the line. */
+    if (a.count <= 0 || !a.next?.length) {
+      if (a.count <= 0 && a.later) out.push({ slug: p.slug, first: p.name.split(' ')[0]!, when: a.later });
+      continue;
+    }
     const when = a.next[0]!.replace(/\s*\(\d+ times?\)\s*$/, '').trim();
     if (!when) continue;
     out.push({ slug: p.slug, first: p.name.split(' ')[0]!, when });
@@ -73,7 +80,7 @@ export function nextConsultNoneOpen(
     if (filter.slugs && !filter.slugs.includes(p.slug)) continue;
     if (filter.language && !(p.languages ?? []).some((l) => l.tag === filter.language)) continue;
     const a = all[p.slug];
-    if (!a || a.error || a.count > 0 || (a.next?.length ?? 0) > 0) return [];
+    if (!a || a.error || a.count > 0 || (a.next?.length ?? 0) > 0 || a.later) return [];
     out.push({ slug: p.slug, first: p.name.split(' ')[0]! });
   }
   return out;

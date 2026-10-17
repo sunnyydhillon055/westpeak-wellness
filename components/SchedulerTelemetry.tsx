@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { track } from '@/lib/analytics';
-import { clampFrameHeight, fromFrame, parseClinikoMessage } from '@/lib/cliniko-frame';
+import { clampFrameHeight, fromFrame, parseClinikoMessage, stepName } from '@/lib/cliniko-frame';
+import { gaLead } from '@/lib/ga-lead';
 
 /* THE MEASUREMENT HOOK FOR A COMPLETED BOOKING.
  *
@@ -16,6 +17,10 @@ import { clampFrameHeight, fromFrame, parseClinikoMessage } from '@/lib/cliniko-
  * name. Called at most once per mounted frame. 1 Oct 2026. */
 function onClinikoBookingConfirmed(ctx: { page: string; who?: string }): void {
   track('scheduler_booked', { page: ctx.page, detail: ctx.who });
+  /* And GA4's lead event, GA only (lib/ga-lead.ts, item 588): the counter
+     above already has the booking. The free consultation on /book only; a
+     portal booking is a client rebooking, not a lead. */
+  if (!(ctx.who ?? '').startsWith('portal:')) gaLead('consult');
 }
 
 /* Measures whether anyone actually reaches the booking calendar, and whether
@@ -78,20 +83,42 @@ function onClinikoBookingConfirmed(ctx: { page: string; who?: string }): void {
  * lazy and does not load until it is scrolled to. A resize arriving late
  * takes the note away again.
  */
+/*
+ * EACH STEP — 16 Oct 2026 (item 555). Every other page message is a step
+ * change; each new step name is counted once per mounted frame as
+ * `scheduler_step`, detail "<step>/<counsellor>" (or the step alone for the
+ * practice-wide calendar), so /admin can show where between "touched" and
+ * "booked" people stop. lib/cliniko-frame.ts stepName() has the shape.
+ *
+ * YOU ARE BOOKED — 16 Oct 2026 (item 569). With `booked`, Cliniko's
+ * confirmation also puts that panel above the frame, as a status, and moves
+ * focus to it, so the first thing a first-time booker reads after the
+ * frame's own confirmation is where the video link will come from. /book
+ * passes it (components/BookChoice.tsx, from lib/practice-facts.ts); the
+ * client portal passes nothing and shows nothing.
+ */
 export const STALL_MS = 10_000;
 export default function SchedulerTelemetry({
-  page, who, stalled, children,
+  page, who, stalled, booked, children,
 }: {
   page: string;
   who?: string;
   /** What to show above the frame if it never draws: the direct link and the
    *  address. Nothing is shown, and nothing counted, without it. */
   stalled?: React.ReactNode;
+  /** What to show above the frame once Cliniko confirms a booking. */
+  booked?: React.ReactNode;
   children: React.ReactNode;
 }) {
   const box = useRef<HTMLDivElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
   const [stall, setStall] = useState(false);
+  const [done, setDone] = useState(false);
   const watch = Boolean(stalled);
+
+  useEffect(() => {
+    if (done) panel.current?.focus({ preventScroll: true });
+  }, [done]);
 
   useEffect(() => {
     const el = box.current;
@@ -140,6 +167,7 @@ export default function SchedulerTelemetry({
     /* Cliniko's resize and step messages. The frame keeps its CSS height
        until the first resize arrives, so the first paint is unchanged. */
     let confirmed = false;
+    const steps = new Set<string>();
     const onMessage = (e: MessageEvent) => {
       const frame = el.querySelector('iframe');
       if (!frame || !fromFrame(e.origin, e.source, frame.src, frame.contentWindow)) return;
@@ -158,6 +186,13 @@ export default function SchedulerTelemetry({
       if (msg.page === 'confirmed' && !confirmed) {
         confirmed = true;
         onClinikoBookingConfirmed({ page, who });
+        setDone(true);
+        return;
+      }
+      const step = stepName(msg.page);
+      if (step && !steps.has(step)) {
+        steps.add(step);
+        track('scheduler_step', { page, detail: who ? `${step}/${who}` : step });
       }
     };
     window.addEventListener('message', onMessage);
@@ -176,6 +211,11 @@ export default function SchedulerTelemetry({
 
   return (
     <div ref={box} className="scheduler-frame">
+      {done && booked && (
+        <div ref={panel} tabIndex={-1} className="crisis" role="status" style={{ marginTop: 0, marginBottom: 12, outline: 'none' }}>
+          <p style={{ margin: 0 }}>{booked}</p>
+        </div>
+      )}
       {stall && stalled && (
         <p className="scheduler-fallback" role="status" style={{ marginTop: 0, marginBottom: 10 }}>
           {stalled}
