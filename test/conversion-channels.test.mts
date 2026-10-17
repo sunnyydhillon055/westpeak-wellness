@@ -27,7 +27,7 @@ test('a utm_source on the channel list is counted, anything else is dropped in t
   assert.equal(channelOf('gbp'), 'gbp');
   assert.equal(channelOf('GBP '), 'gbp', 'case and stray space are not a different channel');
   assert.equal(channelOf('hr'), 'hr');
-  for (const bad of ['', null, undefined, 'facebook', 'newsletter', 'camille-granda', 'dr-smith', 'gbp;x', 'g'.repeat(200)]) {
+  for (const bad of ['', null, undefined, 'tiktok', 'facebook.com', 'newsletter', 'camille-granda', 'dr-smith', 'gbp;x', 'g'.repeat(200)]) {
     assert.equal(channelOf(bad), null, `rejected: ${JSON.stringify(bad)}`);
   }
 });
@@ -35,7 +35,7 @@ test('a utm_source on the channel list is counted, anything else is dropped in t
 test('the server accepts exactly the channel and referrer lists, and nothing a person could be', () => {
   for (const c of CHANNELS) assert.equal(allowedDetail('channel_visit', c), c);
   for (const r of REFERRER_CLASSES) assert.equal(allowedDetail('landing', r), r);
-  for (const bad of ['facebook', 'GBP', 'camille-granda', 'https://www.google.com/', 'google.com', '']) {
+  for (const bad of ['tiktok', 'GBP', 'camille-granda', 'https://www.google.com/', 'google.com', '']) {
     assert.equal(allowedDetail('channel_visit', bad), null, `channel rejected: ${bad}`);
     assert.equal(allowedDetail('landing', bad), null, `landing rejected: ${bad}`);
   }

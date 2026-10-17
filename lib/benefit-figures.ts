@@ -31,9 +31,15 @@
  * Pages are statically built, so the year is the year of the build: a deploy
  * on or after 1 January is what moves the pages to the new figure.
  *
- * This file imports nothing, so a client bundle that reaches it carries a few
- * numbers and no data module. Do not write a dollar sign in front of a
- * weekly figure in this comment: the price-drift scan reads comments too. */
+ * This file imports only lib/leave-pay.ts, which imports nothing (16 Oct
+ * 2026, for the calculator's figures at the end), so a client bundle that
+ * reaches it carries a few numbers and no data module. Do not write a dollar
+ * sign in front of a weekly figure in this comment: the price-drift scan
+ * reads comments too. */
+
+import {
+  dollars, EI_RATE, EI_SICKNESS_WEEKS, BC_PAID_DAYS, FEDERAL_MAX_DAYS, FEDERAL_PROTECTED_WEEKS,
+} from '@/lib/leave-pay';
 
 export type WeeklyBenefitMax = {
   /** The published weekly maximum, in whole dollars. */
@@ -153,3 +159,66 @@ export const EI_WAITING_WAIVED = eiWaitingWaived();
 export const EI_WAITING_CLAUSE = EI_WAITING_WAIVED
   ? `the usual one-week unpaid waiting period is waived for new claims that start by ${longDate(EI_WAITING_WAIVER.to)}`
   : 'there is a one-week unpaid waiting period before benefits start';
+
+/* THE CALCULATOR'S FIGURES, AS DATA — 16 Oct 2026 (item 579).
+ *
+ * The figures table on /tools/stress-leave-pay-calculator (item 510) and the
+ * CSV beside it (/tools/stress-leave-pay-calculator/figures.csv) are built
+ * from these two lists, so the page, the file and the Dataset node cannot
+ * disagree. Moved here from the page module, where the CSV route could not
+ * reach them. Every value is composed from the constants above or from
+ * lib/leave-pay.ts, which imports nothing, so this file still pulls in no
+ * data module; no figure is typed beside its label. Each source carries the
+ * date it was read. */
+export type LeavePaySource = { label: string; read: string; url: string };
+export const LEAVE_PAY_SOURCES: LeavePaySource[] = [
+  { label: 'Government of Canada, EI sickness benefits: how much you could receive', read: '2026-10-15', url: EI_SICKNESS_SOURCE },
+  { label: 'Canada Revenue Agency, EI premium rates and maximums: maximum annual insurable earnings', read: '2026-10-15', url: EI_MIE_SOURCE },
+  { label: 'Government of Canada, EI sickness benefits: do you qualify', read: '2026-10-13', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/qualify.html' },
+  { label: 'Government of Canada, EI sickness benefits: apply', read: '2026-10-13', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/apply.html' },
+  { label: 'Government of Canada, EI sickness benefits: after you apply, the waiting period and the first payment', read: '2026-10-13', url: EI_SICKNESS_AFTER_APPLYING },
+  { label: 'Government of Canada, temporary EI measures: waiving the waiting period', read: '2026-10-15', url: EI_WAITING_WAIVER.sourceUrl },
+  { label: 'Province of BC, paid sick leave', read: '2026-10-15', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
+  { label: 'Government of Canada, medical leave with pay for federally regulated employees, IPG-118', read: '2026-10-15', url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
+  { label: 'Province of BC, leaves of absence: serious personal illness or injury leave', read: '2026-10-15', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
+  { label: 'Canada Labour Code, s. 239, medical leave of up to 27 weeks', read: '2026-10-15', url: 'https://laws-lois.justice.gc.ca/eng/acts/L-2/section-239.html' },
+  { label: 'WorkSafeBC, mental health claims', read: '2026-10-13', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
+];
+/** The source entry for a URL in LEAVE_PAY_SOURCES. */
+export const leavePaySource = (url: string): LeavePaySource => LEAVE_PAY_SOURCES.find((x) => x.url === url)!;
+
+export type LeavePayFigure = { figure: string; value: string; url: string };
+export const LEAVE_PAY_FIGURES: LeavePayFigure[] = [
+  { figure: 'EI sickness benefit rate', value: `${Math.round(EI_RATE * 100)}% of average weekly insurable earnings`, url: EI_SICKNESS_SOURCE },
+  { figure: `EI sickness weekly maximum, ${EI.year}`, value: `${dollars(EI.weekly)} a week, before tax`, url: EI_SICKNESS_SOURCE },
+  { figure: `Maximum insurable earnings, ${EI.year}`, value: `${dollars(EI.maxInsurableEarnings)} a year`, url: EI_MIE_SOURCE },
+  { figure: 'Length of EI sickness benefits', value: `Up to ${EI_SICKNESS_WEEKS} weeks`, url: EI_SICKNESS_SOURCE },
+  {
+    figure: 'EI waiting week',
+    value: EI_WAITING_WAIVED
+      ? `Waived for new claims starting ${longDate(EI_WAITING_WAIVER.from)} to ${longDate(EI_WAITING_WAIVER.to)}`
+      : 'One unpaid week before benefits start',
+    url: EI_WAITING_WAIVER.sourceUrl,
+  },
+  { figure: 'BC paid sick days (Employment Standards Act)', value: `${BC_PAID_DAYS} a year, after ${BC_SICK_DAYS_QUALIFYING_DAYS} days with the employer`, url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
+  { figure: 'BC serious personal illness or injury leave', value: `Up to ${ESA_ILLNESS_LEAVE_WEEKS} weeks in any 52-week period, unpaid and job-protected`, url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
+  { figure: 'Canada Labour Code medical leave with pay', value: `${CLC_FIRST_MEDICAL_DAYS} days after ${CLC_QUALIFYING_DAYS} days of employment, then 1 a month, to ${FEDERAL_MAX_DAYS} a year`, url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
+  { figure: 'Canada Labour Code medical leave', value: `Up to ${FEDERAL_PROTECTED_WEEKS} weeks, job-protected, unpaid by the employer`, url: 'https://laws-lois.justice.gc.ca/eng/acts/L-2/section-239.html' },
+];
+/** The newest read date behind the table: when the figures were last checked. */
+export const FIGURES_CHECKED = LEAVE_PAY_FIGURES.map((f) => leavePaySource(f.url).read).sort().at(-1)!;
+
+/** Where the figures are published as a file, relative to the site root. */
+export const FIGURES_CSV_PATH = '/tools/stress-leave-pay-calculator/figures.csv';
+
+const csvCell = (s: string) => (/[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s);
+/** The figures as CSV: one row per figure, with the source page and the
+ *  date it was read. CRLF line ends, as RFC 4180 has them. */
+export function leavePayFiguresCsv(): string {
+  const rows = [['figure', 'value', 'source', 'source_url', 'read_on']];
+  for (const f of LEAVE_PAY_FIGURES) {
+    const s = leavePaySource(f.url);
+    rows.push([f.figure, f.value, s.label, s.url, s.read]);
+  }
+  return rows.map((r) => r.map(csvCell).join(',')).join('\r\n') + '\r\n';
+}

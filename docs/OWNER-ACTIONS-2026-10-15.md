@@ -138,3 +138,20 @@ Said here so nobody reads a draft as more certain than it is:
   button's label, are not published.
 - The Early Edition's address is from CBC's pages as recorded in §15; CBC
   refused the request on 15 Oct.
+
+## Added 16 October 2026: two capacity checks before the year end (item 559)
+
+- [ ] **15. Run the season capacity check about Sunday 1 November.** In the
+      repository, with the Cliniko key in `.env.local` as for `npm run
+      unpaid`:
+      `node --experimental-strip-types --no-warnings scripts/season-capacity.mjs`.
+      It reads Cliniko only, prints counts (never times of day) of the free
+      consultation and each paid session type, per counsellor, per week to
+      15 January, and flags two things: a week between 16 November and
+      23 December with consultation times but no paid times, and whether
+      4–15 January is open. Where it flags a week, open paid times in
+      Cliniko that week or the next, so a December consultation can become
+      a paid session before 31 December. Nothing it prints goes on the site.
+- [ ] **16. Run it again about Tuesday 1 December.** Same command. The
+      January line checks item 13 for you: if it says "NOT open", item 13
+      is not done.

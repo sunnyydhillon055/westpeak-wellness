@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
-import { waitingRows, CLIENT_AGREEMENT_LIVE, type WaitingInputs } from '../lib/waiting-on-you.ts';
+import { existsSync, readFileSync } from 'node:fs';
+import { waitingRows, CLIENT_AGREEMENT_LIVE, PUNJABI_FORM_DECIDED, type WaitingInputs } from '../lib/waiting-on-you.ts';
 import { recordedPractitioners } from '../lib/practitioners.ts';
 import { draftGuides } from '../lib/guides-drafts.ts';
 
@@ -61,4 +61,16 @@ test('consultation days come from the availability summary', () => {
 
 test('the client-agreement constant matches app/', () => {
   assert.equal(CLIENT_AGREEMENT_LIVE, existsSync(new URL('../app/client-agreement', import.meta.url)));
+});
+
+/* Item 565, 16 Oct 2026: the owner decided the /punjabi form on 15 Oct
+   (commit 80aa79e), so /admin stops listing it. The constant is held to the
+   code that carries the decision, so it cannot say decided if that is undone. */
+test('PUNJABI_FORM_DECIDED matches the /punjabi form and its exemption', () => {
+  const page = readFileSync('app/punjabi/page.tsx', 'utf8');
+  const route = readFileSync('lib/inbound-submit.ts', 'utf8');
+  const decided = /name="looking" value="punjabi"/.test(page) && /source === '\/punjabi' && looking === 'punjabi'/.test(route);
+  assert.equal(PUNJABI_FORM_DECIDED, decided);
+  assert.equal(PUNJABI_FORM_DECIDED, true);
+  assert.equal(find(waitingRows(base({ punjabiFormDecided: PUNJABI_FORM_DECIDED })), /\/punjabi form/), undefined);
 });

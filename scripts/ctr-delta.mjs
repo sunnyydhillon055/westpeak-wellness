@@ -27,13 +27,23 @@
  *   node scripts/ctr-delta.mjs                compare the two most recent exports
  *   node scripts/ctr-delta.mjs --snapshot     record today's titles/descriptions
  *
+ * --snapshot REFUSES (16 Oct 2026, item 567) when .next/BUILD_ID is older
+ * than the HEAD commit, or when a built title disagrees with the latest
+ * 'after' for that page in the 'title-changes' ledger: the 14 and 15 Oct
+ * snapshots were taken from a stale build and held pre-13-Oct titles for 23
+ * ledger pages. Snapshots noted "pre-deploy" in 'snapshot-notes' are never
+ * used as a baseline, and a page counts as rewritten when the ledger records
+ * a title or description change for it between the two exports.
+ *
  * Exports live in data/gsc/ as YYYY-MM-DD-pages-*.csv, straight from the
  * Search Console "Export → CSV" button. No cleaning required.
  */
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { parseCsv, num, isConversational, topicOf } from './lib/query-topics.mjs';
+import { LEDGER_KEY, usableSnapshotKeys, ledgerMismatches, buildIsStale, ledgerChanged } from './lib/snippet-ledger.mjs';
 
 const ROOT = process.cwd();
 const GSC = join(ROOT, 'data', 'gsc');
@@ -84,9 +94,37 @@ function currentSnippets() {
 const SNAP = join(GSC, 'snippets.json');
 
 if (process.argv.includes('--snapshot')) {
-  const today = new Date().toISOString().slice(0, 10);
+  /* The Pacific date, as Search Console dates its exports: an evening run
+     in BC was keyed to tomorrow in UTC (16 Oct 2026). */
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
   const store = existsSync(SNAP) ? JSON.parse(readFileSync(SNAP, 'utf8')) : {};
-  store[today] = currentSnippets();
+  const BUILD_ID = join(ROOT, '.next', 'BUILD_ID');
+  if (!existsSync(BUILD_ID)) {
+    console.error('No build found (.next/BUILD_ID). Run `npx next build` first.');
+    process.exit(1);
+  }
+  let headMs = NaN;
+  try {
+    headMs = Number(execFileSync('git', ['log', '-1', '--format=%ct'], { cwd: ROOT, encoding: 'utf8' }).trim()) * 1000;
+  } catch { /* not a git checkout: the ledger check below still runs */ }
+  if (buildIsStale(statSync(BUILD_ID).mtimeMs, headMs)) {
+    console.error('REFUSED: .next/BUILD_ID is older than the HEAD commit, so the build is not the code.');
+    console.error('Rebuild, then snapshot. A stale build is how the 14 and 15 Oct snapshots went wrong.');
+    process.exit(1);
+  }
+  const built = currentSnippets();
+  const bad = ledgerMismatches(built, store[LEDGER_KEY]);
+  if (bad.length) {
+    console.error(`REFUSED: ${bad.length} built title(s) disagree with the latest 'after' in the ledger:`);
+    for (const b of bad) {
+      console.error(`  ${b.path}`);
+      console.error(`    built:  ${b.built ?? '(no such page in the build)'}`);
+      console.error(`    ledger: ${b.ledger}`);
+    }
+    console.error('Either the build is stale or the ledger is wrong. Fix whichever it is, then snapshot.');
+    process.exit(1);
+  }
+  store[today] = built;
   if (!existsSync(GSC)) mkdirSync(GSC, { recursive: true });
   writeFileSync(SNAP, JSON.stringify(store, null, 2) + '\n');
   const n = Object.keys(store[today]).length;
@@ -204,12 +242,14 @@ const idx = (e) => Object.fromEntries(e.rows.map((r) => [short(r['Top pages']), 
 const A = idx(before), B = idx(after);
 
 const snaps = existsSync(SNAP) ? JSON.parse(readFileSync(SNAP, 'utf8')) : {};
-const snapDates = Object.keys(snaps).sort();
+/* Dated snapshots only, and never one noted pre-deploy (16 Oct 2026). */
+const snapDates = usableSnapshotKeys(snaps);
 const sBefore = snaps[snapDates.filter((d) => d <= before.date).pop()] || {};
 const sAfter = snaps[snapDates.filter((d) => d <= after.date).pop()] || currentSnippets();
 const rewritten = (u) =>
-  sBefore[u] && sAfter[u] &&
-  (sBefore[u].title !== sAfter[u].title || sBefore[u].desc !== sAfter[u].desc);
+  ledgerChanged(snaps[LEDGER_KEY], u, before.date, after.date) ||
+  (sBefore[u] && sAfter[u] &&
+    (sBefore[u].title !== sAfter[u].title || sBefore[u].desc !== sAfter[u].desc));
 
 console.log(`\nCTR DELTA — ${before.date} vs ${after.date}\n`);
 
