@@ -1845,7 +1845,7 @@ a static confirmation flow goes to that flow's own static failure page
 Punjabi-speaking counsellor's calendar; /punjabi/sent never shows a refusal as
 "arrived". Whether /punjabi asks the three enquiry choices waits on owner item
 205; until then `test/inbound-forms.test.mts` records /punjabi as the one
-exempt form. (2) A danda ends a sentence for the enquiry word and sentence
+exempt form. 16 Oct 2026: owner item 205 is decided. On 15 Oct (commit 80aa79e, item 502, owner: ‘do the recommended’) the /punjabi form sends looking=punjabi, and lib/inbound-submit.ts exempts only source /punjabi with looking=punjabi from the where and how-soon questions, as it does for employers. The address, 20-word floor, honeypot and triage still run, and no Punjabi text changed. PUNJABI_FORM_DECIDED in lib/waiting-on-you.ts is true, so /admin no longer lists it, and test/waiting-on-you.test.mts holds the constant to that code. (2) A danda ends a sentence for the enquiry word and sentence
 floor. (3) Site search indexes the pages that book: accepting counsellors (no
 registration numbers; the founder excluded by the accepting flag), city hubs
 with communities, city x service pages, conditions, /pricing, /book, /faq,
@@ -3858,6 +3858,50 @@ Decided 15 Oct 2026 (branch `wf/city9500`). Owner goal: every city landing page 
 No new pages, no client JS, no budget change, no noindex or redirect. The fee comes from the catalogue; no figure was typed.
 
 *Enforced by:* `test/tagalog-ring.test.mts`, `scripts/page-score.mjs`, the uniqueness gate.
+
+### The browser gets its own constants file; the consent banner sits on top of the Book bar (16 Oct 2026)
+Decided 16 Oct 2026 (branch `wf/r11-shared-js-chrome`, items 599, 551, 575, 584, 597, 566).
+
+- **599.** Client code imports `lib/site-client.ts`, never `lib/site.ts`. site-client holds only what a 'use client' file reads, plus CONSULT_TYPE, CLINIKO_BUSINESS and bookingsUrlFor. lib/site.ts builds `site` from it and re-exports those three. `site.counsellor.registration` is gone, because a registration number appears only on its counsellor's profile (lib/practitioners.ts). The error boundary reaches the browser through lib/error-routes.ts, so that file imports site-client too. `loadAvailability` lives in the import-free `lib/availability-fetch.ts`; consult-slot re-exports it, and StickyBook imports it directly. Layout JS went from 351,351 B to 348,155 B. `data/perf-budget.json` is unchanged. `scripts/booking-audit.mjs` and `booking-mapping.mjs` read CONSULT_TYPE from lib/site-client.ts.
+- **551.** The consent banner's markup is `components/ConsentBanner.tsx`, loaded by import() only while no choice is stored. Below 1020px it sits at `var(--sticky-h)`, which StickyBook measures. It hides when the bar hides: calendar open, typing, or lead-form focus. The text is one sentence plus the privacy link. Consent behaviour is unchanged: two buttons, decline remembered, GA only after consent.
+- **575.** A `/book?with=` link does not prefetch, because its payload is the same as /book's. BookLink turns prefetch off for any href with a query. The Header and StickyBook Book buttons prefetch only bare /book. Decision 441's prefetch of bare /book stands.
+- **584.** On /book the sticky "Pick a time" goes to `#choose` (`.book-choose`, CHOOSE_HASH) while that element exists, and to `#calendar` otherwise. It still counts as 'sticky-book-jump'.
+- **597.** `/img/*` sends `public, max-age=86400, stale-while-revalidate=604800`. File names are not hashed, so it is not marked immutable. `images.minimumCacheTTL` is 2592000, and `imageSizes` adds 480. The home hero's `sizes` follows the 620px and 900px float rules.
+- **566.** Sitemap `<lastmod>` is written as the W3C day (`w3cDate` in lib/sitemap-shape.ts) whenever the source is a UTC-midnight stamp. Page dates are stored exactly as before.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `test/site-client.test.mts`, `test/sitemap-shape.test.mts`, `test/static-speed.test.mts`, `test/r10-book-static.test.mts`, `scripts/smoke.mjs`, `scripts/perf-budget.mjs`.
+
+### Leave pages point to the pay calculator, verify answers registration as the law stands, and related links to drafts are gated (16 Oct 2026)
+Decided 16 Oct 2026 (branch `wf/r11-leave-resources-content`, items 558, 564, 570, 574, 576, 580, 581, 585, 591, 593).
+
+- **570. Hero second button.** `Guide`/`Resource.heroSecondary` replaces the index link only where a tool answers the reader's next question better; it is set on the three leave pages to /tools/stress-leave-pay-calculator.
+- **574, 576. Leave facts are quoted from the official page with the date read.** STIIP is from www2.gov.bc.ca (read 16 Oct 2026, page updated 3 Jul 2025). The BCTF SIP is from bctf.ca (read 16 Oct 2026); that page does not say whether mental illness is covered, so the site says 'illness' only. ESA s.49.1 is from bclaws (read 16 Oct 2026). The seasonal reset section on the sick-days guide runs 12-01 to 01-31. The shelf's autumn window is split at 11-30 so the December window can add that guide. 12-01 is in GATE_DATES with a cron line.
+- **580. Coverage gate rule.** An answer that opens 'Commonly/Typically/Generally,' or says '... not universally' is a prevalence claim, the same as 'Often,'. PENDING is empty. The RCC comparison cell now reads 'Many plans, depending on the plan; check the wording'.
+- **581, 591. Registration rule.** No page may call counsellor registration in the client's location a legal requirement. The accurate line is that no BC law requires counsellor registration until psychotherapy is regulated on 29 November 2027 (chcpbc.org, read 16 Oct 2026), and that the practice's RCCs' registration and insurance cover clients located in BC, so the client must be in BC for each session. The verify page opens its FAQs with where the BCACC register is.
+- **593.** `figure` and `figure2` must differ, and a test enforces it.
+- **564, 585.** Closing bands on three English pages and a mid-page CTA on the Punjabi words page; no Punjabi prose added, titles and descriptions untouched.
+- **558.** A related link to a draft guide or a flagged anchor must carry `guide`/`flag` (`GatedLink`) and is rendered only through `live()` (`lib/live-links.ts`, server-only). While unapproved, a linking page must render exactly as before, and a test pins each page's list.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `test/r11-figures-and-draft-links.test.mts`, `test/gate-dates.test.mts`, `scripts/coverage-claims.mjs`.
+
+### Referrer channels grow, the listings pack is BC only, the snippet ledger refuses stale builds, and /refer lists its free resources (16 Oct 2026)
+Decided 16 Oct 2026 (branch `wf/r11-docs-authority-ops`, items 552, 565, 567, 578, 579, 594, 559).
+
+- **552.** CHANNELS gains 'linkedin', 'instagram', 'facebook', 'union' and 'legal', appended after 'email' with nothing reordered. New referrer hosts are grouped by shared suffix so the layout chunk does not grow.
+- **565.** LISTINGS_PACK and OUTREACH §13 are BC only while ALBERTA_OPEN is false, each with a dated note on when to restore Alberta. Owner item 205 is decided (recorded under the 1 Oct entry).
+- **567.** `ctr-delta --snapshot` refuses a build older than HEAD or one whose built titles differ from the ledger, and keys snapshots by the Pacific date. The 14 and 15 Oct snapshots are marked 'pre-deploy' and never used as a baseline. Ledger rows are `{date, path, item, field, before, after}`.
+- **578.** /refer has a `#free-resources` section built from LINKABLE_SLUGS; a new linkable slug needs a purpose line or tsc fails.
+- **579.** The leave-pay figures live in `lib/benefit-figures.ts` and are downloadable as `/tools/stress-leave-pay-calculator/figures.csv`, described by a Dataset node.
+- **594.** OUTREACH §31 drafts a free HeadsUpGuys directory sign-up per counsellor (each confirms her own eligibility) and a note to Archway. Nothing is sent; no paid directory.
+- **559.** `scripts/season-capacity.mjs` reads Cliniko available times read-only (GET only) and prints counts, never times or the key.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `test/referrer-hosts-oct3.test.mts`, `test/waiting-on-you.test.mts`, `test/snippet-ledger.test.mts`, `test/refer-free-resources.test.mts`, `test/leave-pay-figures-csv.test.mts`, `test/season-capacity.test.mts`.
 
 ## How the site behaves when things go wrong (continued)
 
