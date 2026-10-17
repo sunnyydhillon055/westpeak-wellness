@@ -41,6 +41,7 @@ import NextConsultLine from '@/components/NextConsultLine';
 import RegionLinks from '@/components/RegionLinks';
 import { regionLinksFor } from '@/lib/region-links';
 import { OFFERINGS, offerItems } from '@/lib/practitioner-facts';
+import { live } from '@/lib/live-links';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -237,9 +238,11 @@ export default async function ServicePage({ params }: { params: { slug: string }
   /* This page is composed of distinct blocks rather than one section list, so
      it already breaks up well — except through the depth sections, which ran as
      a plain column of about 2,000px. These give that stretch something. */
+  /* Related links live today (item 558, 16 Oct 2026). */
+  const related = s.related && live(s.related);
   const midDevices = [
-    s.related?.[0] ? (
-      <InlineRelated key="rel" href={s.related[0].href} label={s.related[0].label} />
+    related?.[0] ? (
+      <InlineRelated key="rel" href={related[0].href} label={related[0].label} />
     ) : null,
     s.figure2 ? <Figure key="fig2" name={s.figure2} /> : null,
   ].filter(Boolean);
@@ -550,7 +553,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         </section>
       )}
 
-      {s.related && (
+      {related && (
         <section className="section section--tint">
           <div className="container">
             <p className="eyebrow">Related reading</p>
@@ -558,7 +561,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
             <h2 id="go-deeper">Go deeper</h2>
             <div className="chip-grid" style={{ marginTop: 20 }}>
-              {s.related.map((r) => <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>)}
+              {related.map((r) => <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>)}
             </div>
             {s.sources && (
               <>
@@ -576,7 +579,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         </section>
       )}
 
-      <section className={s.related ? 'section' : 'section section--tint'}>
+      <section className={related ? 'section' : 'section section--tint'}>
         <div className="container">
           <p className="eyebrow">Explore more</p>
           <h2>Other ways we can work together</h2>

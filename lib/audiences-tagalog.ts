@@ -159,6 +159,8 @@ export const tagalogAudiences: Audience[] = [
       { href: '/tagalog/gabay/pag-uusap-sa-pamilya-tungkol-sa-therapy', label: 'Pag-uusap sa pamilya tungkol sa therapy' },
       { href: '/compare/therapy-in-tagalog-vs-english', label: 'Therapy in Tagalog or English' },
       { href: '/services/tagalog-counselling', label: 'Tagalog-speaking counselling' },
+      /* Draft until the owner clears it (item 558): dropped by the template until then. */
+      { href: '/guides/holidays-with-family-you-find-difficult', label: 'When the holidays mean seeing family you find difficult', guide: 'holidays-with-family-you-find-difficult' },
       { href: '/book', label: 'Book a free consultation' },
     ],
   },

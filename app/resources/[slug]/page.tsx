@@ -236,7 +236,8 @@ export default async function ResourcePage({ params }: { params: { slug: string 
           <p className="hero-note">{r.readMinutes} min read · Updated {fmt(r.updated)}</p>
           <div className={np ? `btn-row ${np}` : 'btn-row'} style={{ marginTop: 22 }}>
             <BookLink location="hero-resource" href={heroCta.href}>{heroCta.label}</BookLink>
-            <Link className="btn btn--ghost" href="/resources">All resources</Link>
+            {/* Resource.heroSecondary, item 570. */}
+            <Link className="btn btn--ghost" href={r.heroSecondary?.href ?? '/resources'}>{r.heroSecondary?.label ?? 'All resources'}</Link>
           </div>
           <HeroNextDays people={heroPeople} className={np} />
         </div>

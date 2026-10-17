@@ -7,6 +7,7 @@ import { moreGuides6 } from './guides-more6';
 import { moreGuides7 } from './guides-more7';
 import { draftGuides } from './guides-drafts';
 import { CONFIDENTIALITY_LIMITS, ONLINE_COVERAGE } from '@/lib/practice-facts';
+import type { GatedLink } from '@/lib/seasonal';
 
 export type GuideSection = {
   h2: string;
@@ -28,7 +29,9 @@ export type Guide = {
   midCta: { text: string; label: string };
   faqs: { q: string; a: string }[];
   sources: { label: string; url: string }[];
-  related: { href: string; label: string }[];
+  /* `guide` and `flag` (lib/seasonal.ts GatedLink, item 558): a link to a
+     draft guide or a flagged anchor, dropped by the template until live. */
+  related: GatedLink[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
   /* The service the guide is about, as the roster spells it in `services`,
@@ -38,6 +41,12 @@ export type Guide = {
      Unset means individual work, which both accepting counsellors offer.
      1 Oct 2026. */
   service?: 'couples-therapy' | 'emdr-therapy' | 'family-counselling';
+
+  /* The hero's second button, in place of "All guides", where the page has a
+     tool that answers the reader's next question better than the guide
+     index: the leave pages point at the stress-leave pay calculator, which
+     sat mid-body only. Static link. 16 Oct 2026 (item 570). */
+  heroSecondary?: { href: string; label: string };
 
   /* A section that is only true for part of the year, shown after the first
      section and named in the contents list while the Pacific date is inside

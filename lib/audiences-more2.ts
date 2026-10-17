@@ -194,6 +194,8 @@ export const moreAudiences2: Audience[] = [
       { href: '/online-counselling/abbotsford', label: 'Online counselling in Abbotsford' },
       { href: '/for/women', label: 'Counselling for women' },
       { href: '/guides/grief-without-a-timeline', label: 'Grief without a timeline' },
+      /* Shown once FIRST_HOLIDAYS_CLEARED is on (item 558). */
+      { href: '/guides/grief-without-a-timeline#the-first-holidays-after-a-loss', label: 'The first holidays after a loss', guide: 'grief-without-a-timeline', flag: 'FIRST_HOLIDAYS_CLEARED' },
       { href: '/guides/setting-boundaries-with-family', label: 'Setting boundaries with family' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
       { href: '/book', label: 'Book a free consultation' },

@@ -33,6 +33,7 @@ import RegionLinks from '@/components/RegionLinks';
 import { regionLinksFor } from '@/lib/region-links';
 import { counsellorsForAudience, individualFeeLine, feeLineFor } from '@/lib/counsellor-cards';
 import { readCatalog } from '@/lib/cliniko-catalog';
+import { live } from '@/lib/live-links';
 
 export function generateStaticParams() {
   return audiences.map((a) => ({ slug: a.slug }));
@@ -107,13 +108,16 @@ export default async function AudiencePage({ params }: { params: { slug: string 
      The depth sections are weighed in and carry devices too: covering only
      `a.sections` moved the gap to the tail rather than removing it. */
   const forSections = [...a.sections, ...getExtra('for', a.slug)];
+  /* Related links live today (item 558): a draft guide or flagged anchor is
+     dropped until it publishes, so the page is unchanged until then. */
+  const related = live(a.related);
   const midDevices = [
-    a.related[0] ? (
-      <InlineRelated key="rel" href={a.related[0].href} label={a.related[0].label} />
+    related[0] ? (
+      <InlineRelated key="rel" href={related[0].href} label={related[0].label} />
     ) : null,
     a.figure2 ? <Figure key="fig2" name={a.figure2} /> : null,
-    a.related[1] ? (
-      <InlineRelated key="rel2" href={a.related[1].href} label={a.related[1].label} />
+    related[1] ? (
+      <InlineRelated key="rel2" href={related[1].href} label={related[1].label} />
     ) : null,
   ].filter(Boolean);
   const slots = deviceSlots(forSections, midDevices.length);
@@ -383,7 +387,7 @@ export default async function AudiencePage({ params }: { params: { slug: string 
           </ul>
 
           <div className="chip-grid" style={{ marginTop: 28 }}>
-            {a.related.map((r) => <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>)}
+            {related.map((r) => <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>)}
           </div>
 
           {/* The Tagalog city pages, on the two Filipino pages — 2 Oct 2026

@@ -1,4 +1,5 @@
 import { fallbackFee } from '@/lib/cliniko-catalog';
+import type { GatedLink } from '@/lib/seasonal';
 import { site } from '@/lib/site';
 import { withLetters, type Practitioner } from '@/lib/practitioners';
 import { counsellorsFor, languagePhrase, languagesOf, listOf } from '@/lib/city-service-page';
@@ -82,7 +83,7 @@ export type Service = {
   signs?: { label: string; detail: string }[];
   sessionShape?: { h2: string; body: string[] };
   faqs?: { q: string; a: string }[];
-  related?: { href: string; label: string }[];
+  related?: GatedLink[];   // lib/seasonal.ts; gated links dropped until live (item 558)
   sources?: { label: string; url: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
@@ -451,6 +452,8 @@ export const services: Service[] = [
       { href: "/services/couples-therapy", label: "Couples therapy" },
       { href: "/services/punjabi-counselling", label: "Counselling in Punjabi" },
       { href: "/for/south-asian-intergenerational-conflict", label: "South Asian intergenerational conflict" },
+      /* Draft until the owner clears it (item 558): dropped by the template until then. */
+      { href: '/guides/holidays-with-family-you-find-difficult', label: 'Holidays with family you find difficult', guide: 'holidays-with-family-you-find-difficult' },
     ],
     sources: [
       { label: "HereToHelp BC, families and mental health", url: "https://www.heretohelp.bc.ca/" },

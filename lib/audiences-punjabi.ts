@@ -266,7 +266,7 @@ export const punjabiAudiences: Audience[] = [
     slug: 'south-asian-intergenerational-conflict',
     ctaFor: 'for families across a generation',
     language: 'pa',
-    figure2: 'window-of-tolerance',
+    /* figure2 was 'window-of-tolerance' too, so the diagram printed twice; removed 16 Oct 2026 (item 593). */
     figure: 'window-of-tolerance',
     title: 'When you and your parents cannot find each other',
     metaTitle: 'Intergenerational Conflict Counselling in Punjabi | BC',
@@ -373,6 +373,8 @@ export const punjabiAudiences: Audience[] = [
       { href: '/for/first-gen-south-asian-adults', label: 'For first- and second-generation South Asian adults' },
       { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma explained' },
       { href: '/for/punjabi-speaking-couples', label: 'Punjabi-speaking couples counselling' },
+      /* Draft until the owner clears it (item 558): dropped by the template until then. */
+      { href: '/guides/holidays-with-family-you-find-difficult', label: 'When the holidays mean seeing family you find difficult', guide: 'holidays-with-family-you-find-difficult' },
       { href: '/punjabi', label: 'ਪੰਜਾਬੀ ਵਿੱਚ' },
       { href: '/book', label: 'Book a free consultation' },
     ],

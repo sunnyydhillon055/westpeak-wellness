@@ -116,6 +116,8 @@ export const moreGuides3: Guide[] = [
       { href: '/for/first-gen-south-asian-adults', label: 'First-generation South Asian adults' },
       { href: '/guides/setting-boundaries-with-family', label: 'Setting boundaries with family' },
       { href: '/for/couples', label: 'Counselling for couples' },
+      /* Draft until the owner clears it (item 558): dropped by the template until then. */
+      { href: '/guides/holidays-with-family-you-find-difficult', label: 'Seeing family you find difficult at the holidays', guide: 'holidays-with-family-you-find-difficult' },
       { href: '/book', label: 'Book a free consultation' },
     ],
   },
@@ -211,6 +213,8 @@ export const moreGuides3: Guide[] = [
       { label: 'HealthLink BC, mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      /* Draft until the owner clears it (item 558): dropped by the template until then. */
+      { href: '/guides/holidays-with-family-you-find-difficult', label: 'When the holidays mean seeing family you find difficult', guide: 'holidays-with-family-you-find-difficult' },
       { href: '/services/individual-therapy', label: 'Individual counselling for holding the boundary' },
       { href: "/services/family-counselling", label: "Family counselling for the pattern between you" },
       { href: '/online-counselling/abbotsford', label: 'Online counselling in Abbotsford' },
@@ -308,6 +312,8 @@ export const moreGuides3: Guide[] = [
       { href: '/guides/what-trauma-actually-means', label: 'What trauma actually means' },
       { href: '/guides/when-someone-you-love-is-drinking', label: 'When someone you love is drinking' },
       { href: '/guides/chronic-illness-and-mood', label: 'Chronic illness, pain and mood' },
+      /* Draft until the owner clears it (item 558): dropped by the template until then. */
+      { href: '/guides/holidays-with-family-you-find-difficult', label: 'When the holidays mean seeing family you find difficult', guide: 'holidays-with-family-you-find-difficult' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
       { href: '/book', label: 'Book a free consultation' },
     ],

@@ -75,20 +75,21 @@ export const PATTERNS = [
      plan. Also: "most student societies/unions … reimburse/pay/cover",
      which said the prevalence about the student plans. */
   /(?<!\bwhat\b[^.;?]*)\b(?:plans?|extended[- ]health)\b[^.;?]{0,60}?\b(?:commonly|typically|generally) (?:partly |partially )?(?:reimburse|cover)s?\b(?!\s+(?:it\b|\d))(?![^.;]*\bdepending on the plan\b)/i,
+  /* 16 Oct 2026 (item 580): "Commonly, not universally." opened the RCC
+     verify page's coverage answer (1,862 impressions) and passed, because
+     the item 530 shape needs "plans" before the adverb. The answer opening
+     on the adverb is the same claim: caught as "Commonly/Typically/
+     Generally, not universally" anywhere, and as an answer that opens on
+     the adverb and talks about plans or cover before its first full stop,
+     the shape the "Often," pattern above already catches. */
+  /\b(?:commonly|typically|generally),? (?:but )?not universally\b/i,
+  /(?:^|['"`]|:\s)\s*(?:Commonly|Typically|Generally),[^.;]{0,60}?\b(?:plans?|insur\w*|reimburs\w*|cover(?:s|ed|age)?)\b/i,
   /\bmost student (?:societies|unions)\b(?:(?!\b(?:not|never)\b)[^.;]){0,120}?\b(?:reimburs\w*|pays?|cover(?:s|age)?)\b(?![^.;]*\bdepend(?:s|ing) on the plan\b)/i,
 ];
 
-export const PENDING = [
-  /* 3 Oct 2026: found by the "often" shapes added for item 408; the file
-     belongs to another change. Say "which many student plans reimburse,
-     depending on the plan". */
-  { file: 'lib/guides-drafts.ts', fragment: 'often partly covered by the student plan' },
-  /* 15 Oct 2026: found by the "commonly" shape (item 530); the trades
-     page is item 525's. Say "Many union and employer plans … reimburse a
-     Registered Clinical Counsellor, depending on the plan". */
-  { file: 'lib/audiences-more6.ts', fragment: 'in the BC trades commonly reimburse' },
-  { file: 'lib/audiences-more6.ts', fragment: 'through a union or employer commonly reimburses' },
-];
+/* Empty since 16 Oct 2026 (item 580): the student-plan draft clause was
+   rewritten and the two trades entries already matched nothing. */
+export const PENDING = [];
 
 /* What a line looks like once the markup between words is gone: JSX spacers
    ({' '}), tags (<Link href="…">, </Link>), a markdown quote mark, and runs

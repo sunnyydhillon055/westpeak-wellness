@@ -33,6 +33,7 @@ import { counsellorsForInfoPage, feeLineFor, infoCardCopy, showsInfoCards } from
 import { GENTLE_CTA, softStepsFor } from '@/lib/next-steps';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { activeSeasonal } from '@/lib/seasonal';
+import { live } from '@/lib/live-links';
 
 /* GENTLE_CTA, the guides where "Still deciding? Book a free consultation!"
    is the wrong note, lives in lib/next-steps.ts since 1 Oct 2026, so the
@@ -160,6 +161,11 @@ export default async function GuidePage({ params }: { params: { slug: string } }
     'Common questions', 'Sources',
   ]);
 
+  /* The related links that are live today (item 558): a link to a draft
+     guide or a flagged anchor is dropped, so the inline link and the chips
+     render as they did before it was added, until it publishes. */
+  const related = live(g.related);
+
   /* Mid-article devices, spread through the piece by content weight instead of
      stacked at the top. See lib/placement.ts for why. */
   const midDevices = [
@@ -169,8 +175,8 @@ export default async function GuidePage({ params }: { params: { slug: string } }
         {g.midCta.text} <BookLink location="mid-guide" href={cta.href} className="">{g.midCta.label}</BookLink>.
       </p>
     </div>,
-    g.related[0] ? (
-      <InlineRelated key="rel" href={g.related[0].href} label={g.related[0].label} />
+    related[0] ? (
+      <InlineRelated key="rel" href={related[0].href} label={related[0].label} />
     ) : null,
     g.figure2 ? <Figure key="fig2" name={g.figure2} /> : null,
   ].filter(Boolean);
@@ -264,7 +270,9 @@ export default async function GuidePage({ params }: { params: { slug: string } }
             {/* Counted since 1 Oct 2026: book_click was recorded on one guide
                 in six weeks because neither guide button reported anything. */}
             <BookLink location="hero-guide" href={heroCta.href}>{heroCta.label}</BookLink>
-            <Link className="btn btn--ghost" href="/guides">All guides</Link>
+            {/* The second button is the page's own next step where it has
+                one (Guide.heroSecondary, item 570), else the index. */}
+            <Link className="btn btn--ghost" href={g.heroSecondary?.href ?? '/guides'}>{g.heroSecondary?.label ?? 'All guides'}</Link>
           </div>
           <HeroNextDays people={heroPeople} />
         </div>
@@ -398,7 +406,7 @@ export default async function GuidePage({ params }: { params: { slug: string } }
           <h2>Related pages</h2>
           <div className="chip-grid" style={{ marginTop: 20 }}>
             {/* A related link to /book follows the page's booking links. */}
-            {g.related.map((r) => (
+            {related.map((r) => (
               <Link className="chip" key={r.href} href={r.href === site.bookingPath ? cta.href : r.href}>{r.label}</Link>
             ))}
           </div>
